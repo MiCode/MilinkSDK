@@ -22,8 +22,6 @@ API主要由1个类和2个接口组成：
 2. MilinkClientManagerDataSource
 3. MilinkClientManagerDelegate
 
-以下是说明：
-
 ## MilinkClientManager
 这是最主要的类，所有接口都是非阻塞接口。
 
