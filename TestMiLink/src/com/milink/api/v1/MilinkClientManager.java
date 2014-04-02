@@ -15,6 +15,7 @@ import com.milink.api.v1.type.MilinkConfig;
 import com.milink.api.v1.type.ReturnCode;
 import com.milink.api.v1.type.SlideMode;
 import com.milink.api.v1.aidl.IMcs;
+import com.milink.contants.ReturnValue;
 
 public class MilinkClientManager implements IMilinkClientManager {
 
@@ -126,7 +127,6 @@ public class MilinkClientManager implements IMilinkClientManager {
                     if (mDelegate != null) {
                         mDelegate.onClose();
                     }
-
                 }
             });
 
@@ -149,7 +149,7 @@ public class MilinkClientManager implements IMilinkClientManager {
         ReturnCode code = ReturnCode.OK;
 
         try {
-            code = mService.connect(deviceId, timeout) ? ReturnCode.OK : ReturnCode.Error;
+            code = getReturnCode(mService.connect(deviceId, timeout));
         } catch (RemoteException e) {
             e.printStackTrace();
             code = ReturnCode.ServiceException;
@@ -166,7 +166,7 @@ public class MilinkClientManager implements IMilinkClientManager {
         ReturnCode code = ReturnCode.OK;
 
         try {
-            code = mService.disconnect() ? ReturnCode.OK : ReturnCode.Error;
+            code = getReturnCode(mService.disconnect());
         } catch (RemoteException e) {
             e.printStackTrace();
             code = ReturnCode.ServiceException;
@@ -183,7 +183,7 @@ public class MilinkClientManager implements IMilinkClientManager {
         ReturnCode code = ReturnCode.OK;
 
         try {
-            code = mService.startShow() ? ReturnCode.OK : ReturnCode.NotConnected;
+            code = getReturnCode(mService.startShow());
         } catch (RemoteException e) {
             e.printStackTrace();
             code = ReturnCode.ServiceException;
@@ -200,7 +200,7 @@ public class MilinkClientManager implements IMilinkClientManager {
         ReturnCode code = ReturnCode.OK;
 
         try {
-            code = mService.show(photoUri) ? ReturnCode.OK : ReturnCode.NotConnected;
+            code = getReturnCode(mService.show(photoUri));
         } catch (RemoteException e) {
             e.printStackTrace();
             code = ReturnCode.ServiceException;
@@ -217,7 +217,7 @@ public class MilinkClientManager implements IMilinkClientManager {
         ReturnCode code = ReturnCode.OK;
 
         try {
-            code = mService.stopShow() ? ReturnCode.OK : ReturnCode.NotConnected;
+            code = getReturnCode(mService.stopShow());
         } catch (RemoteException e) {
             e.printStackTrace();
             code = ReturnCode.ServiceException;
@@ -235,8 +235,7 @@ public class MilinkClientManager implements IMilinkClientManager {
 
         try {
             boolean isRecyle = (type == SlideMode.Recyle);
-            code = mService.startSlideshow(duration, isRecyle) ? ReturnCode.OK
-                    : ReturnCode.NotConnected;
+            code = getReturnCode(mService.startSlideshow(duration, isRecyle));
         } catch (RemoteException e) {
             e.printStackTrace();
             code = ReturnCode.ServiceException;
@@ -253,7 +252,7 @@ public class MilinkClientManager implements IMilinkClientManager {
         ReturnCode code = ReturnCode.OK;
 
         try {
-            code = mService.stopSlideshow() ? ReturnCode.OK : ReturnCode.NotConnected;
+            code = getReturnCode(mService.stopSlideshow());
         } catch (RemoteException e) {
             e.printStackTrace();
             code = ReturnCode.ServiceException;
@@ -273,8 +272,7 @@ public class MilinkClientManager implements IMilinkClientManager {
         try {
             switch (type) {
                 case Audio:
-                    code = mService.startPlayAudio(url, title, iPosition, dPosition) ? ReturnCode.OK
-                            : ReturnCode.NotConnected;
+                    code = getReturnCode(mService.startPlayAudio(url, title, iPosition, dPosition));
                     break;
 
                 case Photo:
@@ -284,8 +282,7 @@ public class MilinkClientManager implements IMilinkClientManager {
                     code = ReturnCode.InvalidParams;
 
                 case Video:
-                    code = mService.startPlayVideo(url, title, iPosition, dPosition) ? ReturnCode.OK
-                            : ReturnCode.NotConnected;
+                    code = getReturnCode(mService.startPlayVideo(url, title, iPosition, dPosition));
                     break;
 
                 default:
@@ -308,7 +305,7 @@ public class MilinkClientManager implements IMilinkClientManager {
         ReturnCode code = ReturnCode.OK;
 
         try {
-            code = mService.stopPlay() ? ReturnCode.OK : ReturnCode.NotConnected;
+            code = getReturnCode(mService.stopPlay());
         } catch (RemoteException e) {
             e.printStackTrace();
             code = ReturnCode.ServiceException;
@@ -325,7 +322,7 @@ public class MilinkClientManager implements IMilinkClientManager {
         ReturnCode code = ReturnCode.OK;
 
         try {
-            code = mService.setPlaybackRate(rate) ? ReturnCode.OK : ReturnCode.NotConnected;
+            code = getReturnCode(mService.setPlaybackRate(rate));
         } catch (RemoteException e) {
             e.printStackTrace();
             code = ReturnCode.ServiceException;
@@ -358,7 +355,7 @@ public class MilinkClientManager implements IMilinkClientManager {
         ReturnCode code = ReturnCode.OK;
 
         try {
-            code = mService.setPlaybackProgress(position) ? ReturnCode.OK : ReturnCode.NotConnected;
+            code = getReturnCode(mService.setPlaybackProgress(position));
         } catch (RemoteException e) {
             e.printStackTrace();
             code = ReturnCode.ServiceException;
@@ -407,7 +404,7 @@ public class MilinkClientManager implements IMilinkClientManager {
         ReturnCode code = ReturnCode.OK;
 
         try {
-            code = mService.setVolume(volume) ? ReturnCode.OK : ReturnCode.NotConnected;
+            code = getReturnCode(mService.setVolume(volume));
         } catch (RemoteException e) {
             e.printStackTrace();
             code = ReturnCode.ServiceException;
@@ -432,4 +429,39 @@ public class MilinkClientManager implements IMilinkClientManager {
         return volume;
     }
 
+    private ReturnCode getReturnCode(int returnValue) {
+        ReturnCode code = ReturnCode.OK;
+
+        switch (returnValue) {
+            case ReturnValue.OK:
+                code = ReturnCode.OK;
+                break;
+
+            case ReturnValue.ERROR:
+                code = ReturnCode.Error;
+                break;
+
+            case ReturnValue.ERROR_INVALID_PARAM:
+                code = ReturnCode.InvalidParams;
+                break;
+
+            case ReturnValue.ERROR_INVALID_URL:
+                code = ReturnCode.InvalidUrl;
+                break;
+
+            case ReturnValue.ERROR_NOT_CONNECTED:
+                code = ReturnCode.NotConnected;
+                break;
+
+            case ReturnValue.ERROR_NOT_SUPPORT:
+                code = ReturnCode.NotSupport;
+                break;
+
+            default:
+                code = ReturnCode.Error;
+                break;
+        }
+
+        return code;
+    }
 }

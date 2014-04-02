@@ -22,40 +22,40 @@ interface IMcs {
     void setDeviceName(String deviceName);
 
     // connection
-    boolean connect(String deviceId, int timeout);
+    int connect(String deviceId, int timeout);
 
-    boolean disconnect();
+    int disconnect();
 
     // photo
-    boolean startShow();
+    int startShow();
 
-    boolean show(String photoUri);
+    int show(String photoUri);
 
-    boolean stopShow();
+    int stopShow();
 
     // slide
-    boolean startSlideshow(int duration, boolean isRecyle);
+    int startSlideshow(int duration, boolean isRecyle);
 
-    boolean stopSlideshow();
+    int stopSlideshow();
 
     // audio & video
-    boolean startPlayVideo(String url, String title, int iPosition, double dPosition);
+    int startPlayVideo(String url, String title, int iPosition, double dPosition);
 
-    boolean startPlayAudio(String url, String title, int iPosition, double dPosition);
+    int startPlayAudio(String url, String title, int iPosition, double dPosition);
 
-    boolean stopPlay();
+    int stopPlay();
 
-    boolean setPlaybackRate(int rate);
+    int setPlaybackRate(int rate);
 
     int getPlaybackRate();
 
-    boolean setPlaybackProgress(int position);
+    int setPlaybackProgress(int position);
 
     int getPlaybackProgress();
 
     int getPlaybackDuration();
 
-    boolean setVolume(int volume);
+    int setVolume(int volume);
 
     int getVolume();
 }

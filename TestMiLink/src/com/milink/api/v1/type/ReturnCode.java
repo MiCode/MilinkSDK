@@ -8,4 +8,5 @@ public enum ReturnCode {
     NotConnected,
     NotSupport,
     InvalidParams,
+    InvalidUrl,
 }
