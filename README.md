@@ -118,6 +118,32 @@ API主要由1个类和2个接口组成：
 返回值
 * 见 ReturnCode
 
+### 缩放图片
+
+    ReturnCode zoomPhoto(String photoUri,
+            int x,
+            int y,
+            int screenWidth,
+            int screenHeight,
+            int orgPhotoWidth,
+            int orgPhotoHeight,
+            float scale)
+说明
+* 缩放已经在TV上显示的图片
+
+参数
+* photoUri 图片地址
+* x 当前位于手机屏幕中央位置的点在原照片中对应点的横坐标
+* y 当前位于手机屏幕中央位置的点在原照片中对应点的纵坐标
+* screenWidth 手机端屏幕的宽度
+* screenHeight 手机端屏幕的高度
+* orgPhotoWidth 照片原始宽度
+* orgPhotoHeight 照片原始高度
+* scale 缩放比例，浮点数（0-1之间）
+
+返回值
+* 见 ReturnCode
+
 ### 停止显示图片
 
     ReturnCode stopShow();
