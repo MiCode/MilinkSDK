@@ -4,7 +4,7 @@
 
 # 概述
 
-# 权限
+# 需要的权限
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE"/>
@@ -51,7 +51,7 @@ API主要由1个类和2个接口组成：
 * 推送照片时，为了加速，Milink做了优化处理，Milink服务会主动查询客户端的图片数据。
 
 参数
-*dataSource - 参考 `MilinkClientManagerDataSource`
+* dataSource - 参考 `MilinkClientManagerDataSource`
 
 ### 设置代理
 
