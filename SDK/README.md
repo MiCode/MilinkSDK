@@ -405,7 +405,9 @@ API主要由1个类和2个接口组成：
 4. ReturnCode
 5. SlideMode
 
-### DeviceType
+### 设备类型
+
+* DeviceType
 
 值      | 说明
 --------|-----------
@@ -413,7 +415,48 @@ Unknown | 未知设备类型
 TV      | 电视机或电视盒  
 Speaker | 音箱
 
+### 错误代码
 
+* ErrorCode
+
+值              | 说明
+----------------|-----------
+Undefined       | 未定义
+ConnectTimeout  | 连接超时
+
+### 媒体类型
+
+* MediaType
+
+值          | 说明
+------------|-----------
+Undefined   | 未定义
+Photo       | 图片
+Audio       | 音频
+Video       | 视频
+
+### 返回值
+
+* ReturnCode
+
+值                  | 说明
+--------------------|-----------
+OK                  | 接口调用成功
+Error               | 接口调用失败
+ServiceException    | 出现服务异常
+NotConnected        | 没有连接
+NotSupport          | 不支持这个接口
+InvalidParams       | 无效参数
+InvalidUrl          | 无效URL
+
+### 幻灯模式
+
+* SlideMode
+
+值      | 说明
+--------|-----------
+Normal  | 普通模式
+Recyle  | 循环模式
 
 
 [001]: http://www.xiaomi.com/  (Xiaomi)
