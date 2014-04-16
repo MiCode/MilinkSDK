@@ -18,23 +18,33 @@
     filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="音乐_推送菜单_files/u6_normal.png");
 }
 
-* html .u9_normal {
+* html .u8_normal {
     background-image: none;
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="音乐_推送菜单_files/u9_normal.png");
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="音乐_推送菜单_files/u8_normal.png");
 }
 
 * html .u11_normal {
     background-image: none;
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="音乐_推送菜单_files/u9_normal.png");
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="音乐_推送菜单_files/u11_normal.png");
 }
 
 * html .u13_normal {
     background-image: none;
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="音乐_推送菜单_files/u9_normal.png");
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="音乐_推送菜单_files/u13_normal.png");
 }
 
 * html .u15_normal {
     background-image: none;
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="音乐_推送菜单_files/u9_normal.png");
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="音乐_推送菜单_files/u13_normal.png");
+}
+
+* html .u17_normal {
+    background-image: none;
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="音乐_推送菜单_files/u13_normal.png");
+}
+
+* html .u19_normal {
+    background-image: none;
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="音乐_推送菜单_files/u19_normal.png");
 }
 

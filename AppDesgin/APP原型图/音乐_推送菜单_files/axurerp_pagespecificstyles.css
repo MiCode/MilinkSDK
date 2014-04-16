@@ -131,9 +131,9 @@ div {
 .u6_container {
     position:absolute;
     left:138px;
-    top:218px;
+    top:173px;
     width:300px;
-    height:480px;
+    height:291px;
 }
 
 #u6_img {
@@ -141,15 +141,15 @@ div {
     left:-3px;
     top:-3px;
     width:306px;
-    height:486px;
+    height:297px;
 }
 
 .u7 {
     position:absolute;
     left:2px;
-    top:232px;
+    top:122px;
     width:296px;
-    height:16px;
+    height:48px;
     ;
     ;
     ;
@@ -158,40 +158,32 @@ div {
     word-wrap:break-word;
 }
 
-#u8 {
+.u8_normal {
+    background-image: url('../音乐_推送菜单_files/u8_normal.png');
+}
+
+.u8_container {
     position:absolute;
-    left:48px;
-    top:658px;
-    width:485px;
-    height:205px
+    left:474px;
+    top:76px;
+    width:40px;
+    height:40px;
 }
 
-.u9_normal {
-    background-image: url('../音乐_推送菜单_files/u9_normal.png');
-}
-
-.u9_container {
-    position:absolute;
-    left:0px;
-    top:0px;
-    width:480px;
-    height:50px;
-}
-
-#u9_img {
+#u8_img {
     position:absolute;
     left:-3px;
     top:-3px;
-    width:486px;
-    height:56px;
+    width:46px;
+    height:46px;
 }
 
-.u10 {
+.u9 {
     position:absolute;
     left:2px;
-    top:17px;
-    width:476px;
-    height:16px;
+    top:14px;
+    width:36px;
+    height:13px;
     ;
     ;
     ;
@@ -200,15 +192,23 @@ div {
     word-wrap:break-word;
 }
 
+#u10 {
+    position:absolute;
+    left:114px;
+    top:377px;
+    width:373px;
+    height:257px
+}
+
 .u11_normal {
-    background-image: url('../音乐_推送菜单_files/u9_normal.png');
+    background-image: url('../音乐_推送菜单_files/u11_normal.png');
 }
 
 .u11_container {
     position:absolute;
     left:0px;
-    top:50px;
-    width:480px;
+    top:0px;
+    width:368px;
     height:50px;
 }
 
@@ -216,7 +216,7 @@ div {
     position:absolute;
     left:-3px;
     top:-3px;
-    width:486px;
+    width:374px;
     height:56px;
 }
 
@@ -224,7 +224,7 @@ div {
     position:absolute;
     left:2px;
     top:17px;
-    width:476px;
+    width:364px;
     height:16px;
     ;
     ;
@@ -235,14 +235,14 @@ div {
 }
 
 .u13_normal {
-    background-image: url('../音乐_推送菜单_files/u9_normal.png');
+    background-image: url('../音乐_推送菜单_files/u13_normal.png');
 }
 
 .u13_container {
     position:absolute;
     left:0px;
-    top:100px;
-    width:480px;
+    top:50px;
+    width:368px;
     height:50px;
 }
 
@@ -250,7 +250,7 @@ div {
     position:absolute;
     left:-3px;
     top:-3px;
-    width:486px;
+    width:374px;
     height:56px;
 }
 
@@ -258,7 +258,7 @@ div {
     position:absolute;
     left:2px;
     top:17px;
-    width:476px;
+    width:364px;
     height:16px;
     ;
     ;
@@ -269,14 +269,14 @@ div {
 }
 
 .u15_normal {
-    background-image: url('../音乐_推送菜单_files/u9_normal.png');
+    background-image: url('../音乐_推送菜单_files/u13_normal.png');
 }
 
 .u15_container {
     position:absolute;
     left:0px;
-    top:150px;
-    width:480px;
+    top:100px;
+    width:368px;
     height:50px;
 }
 
@@ -284,7 +284,7 @@ div {
     position:absolute;
     left:-3px;
     top:-3px;
-    width:486px;
+    width:374px;
     height:56px;
 }
 
@@ -292,7 +292,75 @@ div {
     position:absolute;
     left:2px;
     top:17px;
-    width:476px;
+    width:364px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u17_normal {
+    background-image: url('../音乐_推送菜单_files/u13_normal.png');
+}
+
+.u17_container {
+    position:absolute;
+    left:0px;
+    top:150px;
+    width:368px;
+    height:50px;
+}
+
+#u17_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:374px;
+    height:56px;
+}
+
+.u18 {
+    position:absolute;
+    left:2px;
+    top:17px;
+    width:364px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u19_normal {
+    background-image: url('../音乐_推送菜单_files/u19_normal.png');
+}
+
+.u19_container {
+    position:absolute;
+    left:0px;
+    top:200px;
+    width:368px;
+    height:52px;
+}
+
+#u19_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:374px;
+    height:58px;
+}
+
+.u20 {
+    position:absolute;
+    left:2px;
+    top:18px;
+    width:364px;
     height:16px;
     ;
     ;
