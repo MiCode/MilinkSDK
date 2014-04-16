@@ -1,3 +1,3 @@
 MilinkSDK
 =========
-Modify readme.
+Modify sdk readme.
