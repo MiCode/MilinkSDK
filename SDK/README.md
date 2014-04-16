@@ -127,7 +127,7 @@ API主要由1个类和2个接口组成：
 * 显示指定的图片
 
 参数
-* photoUri 图片地址，格式为：__/sdcard/1.jpg__ 或 __file:///sdcard/1.jpg__
+* photoUri 图片地址，格式为：`/sdcard/1.jpg` 或 `file:///sdcard/1.jpg`
 
 返回值
 * 见 ReturnCode
@@ -194,7 +194,7 @@ API主要由1个类和2个接口组成：
     ReturnCode startPlay(String url, String title, int iPosition, double dPosition, MediaType type);
 
 参数
-* url 音频或视频的地址，如：__http://www.youku.com/demo.m3u8__，__/sdcard/movies/demo.mp4__, __file:///sdcard/movies/demo.mp4__
+* url 音频或视频的地址，如：`http://www.youku.com/demo.m3u8`,`/sdcard/movies/demo.mp4`,`file:///sdcard/movies/demo.mp4`
 * title 内容名称
 * iPosition 开始播放的位置，单位为毫秒。
 * dPosition 开始播放的位置，单位为百分比，即播放器的进度条上的进度值。
