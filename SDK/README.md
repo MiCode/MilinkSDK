@@ -397,6 +397,29 @@ API主要由1个类和2个接口组成：
 参数
 * isAuto true：表示电视机自动播放到上一首，false：表示用遥控器播放上一首。
 
+# 其他数据类型
+
+1. DeviceType
+2. ErrorCode
+3. MediaType
+4. ReturnCode
+5. SlideMode
+
+### DeviceType
+
+设备类型，分为三种：
+
+* 未知设备类型
+    Unknown
+
+* 电视机或电视盒
+    TV
+
+* 音箱
+    Speaker
+
+
+
 
 [001]: http://www.xiaomi.com/  (Xiaomi)
 [002]: http://www.xiaomi.com/  (Xiaomi)
