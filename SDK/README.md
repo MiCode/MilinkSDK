@@ -4,6 +4,13 @@
 
 # 概述
 
+# 功能
+
+1. 设备发现：发现[小米盒子][001]和[小米电视][002]，以及支持[AirPlay][003]或[DLNA][004]的电视盒、电视机、音箱。
+2. 推送图片：推送图片到[小米盒子][001]、[小米电视][002]、以及支持[AirPlay][003]或[DLNA][004]的电视盒、电视机上显示。
+3. 推送视频：推送视频到[小米盒子][001]、[小米电视][002]、以及支持[AirPlay][003]或[DLNA][004]的电视盒、电视机上播放。
+4. 推送音乐：推送音乐到[小米盒子][001]、[小米电视][002]、以及支持[AirPlay][003]或[DLNA][004]的电视盒、电视机、音箱上播放。
+
 # 需要的权限
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -13,13 +20,12 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-# 功能
+# 支持的接收端
 
-1. 设备发现：发现[小米盒子][001]和[小米电视][002]，以及支持[AirPlay][003]或[DLNA][004]的电视盒、电视机、音箱。
-2. 推送图片：推送图片到[小米盒子][001]、[小米电视][002]、以及支持[AirPlay][003]或[DLNA][004]的电视盒、电视机上显示。
-3. 推送视频：推送视频到[小米盒子][001]、[小米电视][002]、以及支持[AirPlay][003]或[DLNA][004]的电视盒、电视机上播放。
-4. 推送音乐：推送音乐到[小米盒子][001]、[小米电视][002]、以及支持[AirPlay][003]或[DLNA][004]的电视盒、电视机、音箱上播放。
-
+1. 小米盒子
+2. AppleTV
+3. Windows Media Player 12 （Windows 7/8 自带，需要开启“允许远程控制我的播放器”）
+4. XBMC
 
 # API
 Milink已经做成了一个[Service][005]，上层应用通过API对其进行调用。
