@@ -329,6 +329,8 @@ API主要由1个类和2个接口组成：
 * name 设备名称
 * type 设备类型，分为电视和音箱
 
+> 设备类型
+
 ### 设备下线
 
     void onDeviceLost(String deviceId);
