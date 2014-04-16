@@ -11,7 +11,7 @@ $axure.eventManager.click('u4', function(e) {
 
 if (true) {
 
-	self.location.href=$axure.globalVariableProvider.getLinkUrl('主页_音乐.html');
+	self.location.href=$axure.globalVariableProvider.getLinkUrl('主页_视频.html');
 
 }
 });
