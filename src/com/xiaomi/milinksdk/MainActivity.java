@@ -70,6 +70,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onDestroy() {
         mMilinkClientManager.close();
+        mDeviceList.clear();
         super.onDestroy();
     }
 
