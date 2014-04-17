@@ -104,7 +104,7 @@ public class VideoActivity extends Activity implements IVideoCallback {
             String[] deviceNames = new String[names.size()];
             names.toArray(deviceNames);
 
-            new AlertDialog.Builder(this).setTitle("").setItems(
+            new AlertDialog.Builder(this).setTitle(R.string.deviceListName).setItems(
                     deviceNames,
                     new DialogInterface.OnClickListener() {
 
