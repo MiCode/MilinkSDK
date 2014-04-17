@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.milink.api.v1.MilinkClientManager;
 import com.milink.api.v1.type.ErrorCode;
@@ -34,7 +35,7 @@ public class VideoActivity extends Activity implements IVideoCallback {
     private String timeout = "5000";
     private int VIDEO_SEP_TIME = 1000;
     private int VIDEO_DURATION = 0;
-    
+
     private boolean isVideoPlaying = false;
 
     private HashMap<String, Object> mVideoInfoHashMap = null;
@@ -78,7 +79,7 @@ public class VideoActivity extends Activity implements IVideoCallback {
         MainActivity.mMilinkClient.setCallback(this);
 
     }
-    
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -111,7 +112,7 @@ public class VideoActivity extends Activity implements IVideoCallback {
             String[] deviceNames = new String[names.size()];
             names.toArray(deviceNames);
 
-            new AlertDialog.Builder(this).setTitle("请选择设备").setItems(
+            new AlertDialog.Builder(this).setTitle("").setItems(
                     deviceNames,
                     new DialogInterface.OnClickListener() {
 
@@ -136,13 +137,12 @@ public class VideoActivity extends Activity implements IVideoCallback {
 
         return false;
     }
-    
+
     private synchronized void setPlaying(boolean playing) {
         isVideoPlaying = playing;
     }
 
     public void setVisible(boolean visible) {
-        
         View view0 = findViewById(R.id.playtime);
         View view1 = findViewById(R.id.btnPause);
         View view2 = findViewById(R.id.btnStop);
@@ -163,17 +163,7 @@ public class VideoActivity extends Activity implements IVideoCallback {
         }
     }
 
-    public void playVideo(View view) {
-        MilinkClientManager mMilinkClientManager = MainActivity.mMilinkClient.getInstance();
-        String title = (String) mVideoInfoHashMap.get("TITLE");
-        String url = (String) mVideoInfoHashMap.get("DATA");
-
-        Log.d(TAG, "url: " + url);
-        Log.d(TAG, "title: " + title);
-
-        ReturnCode retcode = mMilinkClientManager.startPlay(url, title, 0, 0, MediaType.Video);
-        Log.d(TAG, "startPlay ret code: " + retcode);
-
+    private void startTimerTask() {
         mTimer = new Timer();
         mTimerTask = new TimerTask() {
 
@@ -201,6 +191,27 @@ public class VideoActivity extends Activity implements IVideoCallback {
         };
 
         mTimer.schedule(mTimerTask, VIDEO_SEP_TIME, VIDEO_SEP_TIME);
+    }
+
+    private void stopTimerTask() {
+        if (mTimer != null) {
+            mTimer.cancel();
+            mTimer = null;
+        }
+    }
+
+    public void playVideo(View view) {
+        MilinkClientManager mMilinkClientManager = MainActivity.mMilinkClient.getInstance();
+        String title = (String) mVideoInfoHashMap.get("TITLE");
+        String url = (String) mVideoInfoHashMap.get("DATA");
+
+        Log.d(TAG, "url: " + url);
+        Log.d(TAG, "title: " + title);
+
+        ReturnCode retcode = mMilinkClientManager.startPlay(url, title, 0, 0.0, MediaType.Video);
+        Log.d(TAG, "startPlay ret code: " + retcode);
+
+        startTimerTask();
 
     }
 
@@ -222,21 +233,22 @@ public class VideoActivity extends Activity implements IVideoCallback {
         Log.d(TAG, "stop ret code: " + retcode);
         Log.d(TAG, "disconnect ret code: " + retcode1);
 
-        if (mTimer != null) {
-            mTimer.cancel();
-        }
-        
+        stopTimerTask();
+        setVisible(false);
+        setPlaying(false);
     }
 
     @Override
     public void onConnected() {
         playVideo(getCurrentFocus());
         setVisible(true);
+        Toast.makeText(this, R.string.connected, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onConnectedFailed(ErrorCode errorCode) {
         setVisible(false);
+        Toast.makeText(this, R.string.connectFailed, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -254,18 +266,23 @@ public class VideoActivity extends Activity implements IVideoCallback {
         btn.setText(R.string.pauseVideo);
         setPlaying(true);
         setVisible(true);
+        Toast.makeText(this, R.string.playing, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onStopped() {
+        stopTimerTask();
         setVisible(false);
         setPlaying(false);
+        Toast.makeText(this, R.string.stopped, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onPaused() {
         Button btn = (Button) findViewById(R.id.btnPause);
         btn.setText(R.string.playVideo);
+        setPlaying(false);
+        Toast.makeText(this, R.string.paused, Toast.LENGTH_SHORT).show();
     }
 
     @Override
