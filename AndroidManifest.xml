@@ -32,6 +32,8 @@
         </activity>
         <activity android:name=".video.VideoActivity" >
         </activity>
+        <activity android:name=".audio.AudioActivity" >
+        </activity>
     </application>
 
 </manifest>

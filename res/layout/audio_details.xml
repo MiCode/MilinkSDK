@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/music_main_interface"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/music_main_background"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/music_title"
+        android:layout_width="fill_parent"
+        android:layout_height="80dip"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/back_button"
+                android:layout_width="40dip"
+                android:layout_height="40dip"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/icon_music_back" />
+
+            <Button
+                android:id="@+id/cast_button"
+                android:layout_width="40dip"
+                android:layout_height="40dip"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/icon_music_cast" />
+
+            <TextView
+                android:id="@+id/title_textView"
+                android:layout_width="fill_parent"
+                android:layout_height="80dip"
+                android:layout_toRightOf="@id/back_button"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:textSize="25sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/music_operate"
+        android:layout_width="fill_parent"
+        android:layout_height="100dip"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/playPause_button"
+            android:layout_width="60dip"
+            android:layout_height="60dip"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dip"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dip"
+            />
+        <Button
+            android:id="@+id/stop_audio_button"
+            android:layout_width="60dip"
+            android:layout_height="60dip"
+            android:layout_toRightOf="@id/playPause_button"
+            android:layout_alignTop="@id/playPause_button"
+            android:background="@drawable/icon_audio_stop"
+            />
+        <Button
+            android:id="@+id/prev_audio_button"
+            android:layout_width="60dip"
+            android:layout_height="60dip"
+            android:layout_toRightOf="@id/stop_audio_button"
+            android:layout_alignTop="@id/playPause_button"
+            android:background="@drawable/icon_audio_prev"
+            />
+        <Button
+            android:id="@+id/next_audio_button"
+            android:layout_width="60dip"
+            android:layout_height="60dip"
+            android:layout_toRightOf="@id/prev_audio_button"
+            android:layout_alignTop="@id/playPause_button"
+            android:background="@drawable/icon_audio_next"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/music_seekbar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/music_operate"
+        android:layout_gravity="center_vertical">
+        <SeekBar
+            android:id="@+id/time_seekBar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:thumb="@layout/audio_seekbar_thumb" />
+    </RelativeLayout>
+
+</RelativeLayout>
