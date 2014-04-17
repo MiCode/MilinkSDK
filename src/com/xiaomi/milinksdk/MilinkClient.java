@@ -3,6 +3,7 @@ package com.xiaomi.milinksdk;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.milink.api.v1.MilinkClientManager;
 import com.milink.api.v1.MilinkClientManagerDataSource;
@@ -14,7 +15,7 @@ import com.xiaomi.milinksdk.image.IImageCallback;
 
 public class MilinkClient implements MilinkClientManagerDelegate, MilinkClientManagerDataSource {
     private String TAG = this.getClass().getSimpleName();
-    private Context context;
+    private Context mContext;
 
     private static MilinkClientManager mMgr = null;
     private ICallback mICallback = null;
@@ -23,14 +24,14 @@ public class MilinkClient implements MilinkClientManagerDelegate, MilinkClientMa
     }
 
     public void setContext(Context context) {
-        this.context = context;
+        this.mContext = context;
     }
 
     public final MilinkClientManager getInstance() {
         if (mMgr == null) {
             synchronized (this) {
                 if (mMgr == null) {
-                    mMgr = new MilinkClientManager(context);
+                    mMgr = new MilinkClientManager(mContext);
                 }
             }
         }
@@ -74,6 +75,7 @@ public class MilinkClient implements MilinkClientManagerDelegate, MilinkClientMa
     @Override
     public void onDeviceFound(String deviceId, String name, DeviceType type) {
         Log.d(TAG, String.format("onDeviceFound: %s -> %s -> %s", deviceId, name, type));
+        Toast.makeText(mContext, R.string.deviceFound, Toast.LENGTH_SHORT);
         synchronized (MainActivity.mDeviceList) {
             Device device = new Device(deviceId, name, type);
             MainActivity.mDeviceList.add(device);
@@ -83,6 +85,7 @@ public class MilinkClient implements MilinkClientManagerDelegate, MilinkClientMa
     @Override
     public void onDeviceLost(String deviceId) {
         Log.d(TAG, String.format("onDeviceLost: %s", deviceId));
+        Toast.makeText(mContext, R.string.deviceLost, Toast.LENGTH_SHORT);
         synchronized (MainActivity.mDeviceList) {
             for (Device device : MainActivity.mDeviceList) {
                 if (device.id.equals(deviceId)) {

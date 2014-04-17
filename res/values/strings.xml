@@ -15,5 +15,7 @@
     <string name="stopped">停止</string>
     <string name="deviceListName">请选择设备</string>
     <string name="connectTimeout">5000</string>
+    <string name="deviceFound">发现设备</string>
+    <string name="deviceLost">丢失设备</string>
 
 </resources>
