@@ -1,3 +1,4 @@
+
 package com.xiaomi.milinksdk;
 
 import com.milink.api.v1.type.DeviceType;

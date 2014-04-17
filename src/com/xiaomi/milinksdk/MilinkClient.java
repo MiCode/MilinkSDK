@@ -15,7 +15,7 @@ import com.xiaomi.milinksdk.image.IImageCallback;
 public class MilinkClient implements MilinkClientManagerDelegate, MilinkClientManagerDataSource {
     private String TAG = this.getClass().getSimpleName();
     private Context context;
-    
+
     private static MilinkClientManager mMgr = null;
     private ICallback mICallback = null;
 
@@ -25,7 +25,7 @@ public class MilinkClient implements MilinkClientManagerDelegate, MilinkClientMa
     public void setContext(Context context) {
         this.context = context;
     }
-    
+
     public final MilinkClientManager getInstance() {
         if (mMgr == null) {
             synchronized (this) {
@@ -36,7 +36,7 @@ public class MilinkClient implements MilinkClientManagerDelegate, MilinkClientMa
         }
         return mMgr;
     }
-    
+
     public void setCallback(ICallback mICallback) {
         this.mICallback = mICallback;
     }
@@ -144,7 +144,7 @@ public class MilinkClient implements MilinkClientManagerDelegate, MilinkClientMa
     @Override
     public void onNextAudio(boolean isAuto) {
         Log.d(TAG, "onNextAudio");
-        
+
         if (mICallback instanceof IAudioCallback) {
             ((IAudioCallback) mICallback).onNextAudio(isAuto);
         }
@@ -153,7 +153,7 @@ public class MilinkClient implements MilinkClientManagerDelegate, MilinkClientMa
     @Override
     public void onPrevAudio(boolean isAuto) {
         Log.d(TAG, "onPrevAudio");
-        
+
         if (mICallback instanceof IAudioCallback) {
             ((IAudioCallback) mICallback).onPrevAudio(isAuto);
         }
