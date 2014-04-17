@@ -22,6 +22,8 @@ import com.milink.api.v1.type.ReturnCode;
 import com.xiaomi.milinksdk.Device;
 import com.xiaomi.milinksdk.MainActivity;
 import com.xiaomi.milinksdk.R;
+
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -102,7 +104,7 @@ public class VideoActivity extends Activity implements IVideoCallback {
             String[] deviceNames = new String[names.size()];
             names.toArray(deviceNames);
 
-            new AlertDialog.Builder(this).setTitle("").setItems(
+            new AlertDialog.Builder(this).setTitle(R.string.deviceListName).setItems(
                     deviceNames,
                     new DialogInterface.OnClickListener() {
 
@@ -192,7 +194,7 @@ public class VideoActivity extends Activity implements IVideoCallback {
             }
 
             private String convertTime(int time) {
-                SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+                DateFormat format = new SimpleDateFormat("HH:mm:ss");
                 format.setTimeZone(TimeZone.getTimeZone("GMT+00:00"));
                 return format.format(time);
             }
