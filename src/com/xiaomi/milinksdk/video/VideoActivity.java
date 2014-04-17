@@ -24,7 +24,8 @@ import com.xiaomi.milinksdk.MainActivity;
 import com.xiaomi.milinksdk.R;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -38,7 +39,9 @@ public class VideoActivity extends Activity implements IVideoCallback {
 
     private boolean isVideoPlaying = false;
 
-    private HashMap<String, Object> mVideoInfoHashMap = null;
+    private List<Map<String, Object>> mVideoList = null;
+    private int mCurrentPosition = 0;
+
     private Timer mTimer = null;
     private TimerTask mTimerTask = null;
 
@@ -58,24 +61,11 @@ public class VideoActivity extends Activity implements IVideoCallback {
         Log.d(TAG, "VideoActivity onCreate");
 
         Bundle mBundle = getIntent().getExtras();
-        mVideoInfoHashMap = (HashMap<String, Object>) mBundle.get("videoInfo");
+        mVideoList = (List<Map<String, Object>>) mBundle.get("videoInfoList");
+        mCurrentPosition = (Integer) mBundle.get("position");
 
-        TextView tv1 = (TextView) findViewById(R.id.title);
-        TextView tv2 = (TextView) findViewById(R.id.album);
-        TextView tv3 = (TextView) findViewById(R.id.artist);
-        TextView tv4 = (TextView) findViewById(R.id.discription);
-        TextView tv5 = (TextView) findViewById(R.id.data);
-        TextView tv6 = (TextView) findViewById(R.id.MIME_TYPE);
-
-        tv1.setText("Title: " + (String) mVideoInfoHashMap.get("TITLE"));
-        tv2.setText("Album: " + (String) mVideoInfoHashMap.get("ALBUM"));
-        tv3.setText("Artist: " + (String) mVideoInfoHashMap.get("ARTIST"));
-        tv4.setText("Description: " + (String) mVideoInfoHashMap.get("DESCRIPTION"));
-        tv5.setText("Data: " + (String) mVideoInfoHashMap.get("DATA"));
-        tv6.setText("MIME_TYPE: " + (String) mVideoInfoHashMap.get("MIME_TYPE"));
-
+        setVideoInfo(mVideoList, mCurrentPosition);
         setVisible(false);
-
         MainActivity.mMilinkClient.setCallback(this);
 
     }
@@ -136,6 +126,24 @@ public class VideoActivity extends Activity implements IVideoCallback {
         }
 
         return false;
+    }
+
+    private void setVideoInfo(List<Map<String, Object>> list, int pos) {
+        Map<String, Object> map = list.get(pos);
+
+        TextView tv1 = (TextView) findViewById(R.id.title);
+        TextView tv2 = (TextView) findViewById(R.id.album);
+        TextView tv3 = (TextView) findViewById(R.id.artist);
+        TextView tv4 = (TextView) findViewById(R.id.discription);
+        TextView tv5 = (TextView) findViewById(R.id.data);
+        TextView tv6 = (TextView) findViewById(R.id.MIME_TYPE);
+
+        tv1.setText("Title: " + (String) map.get("TITLE"));
+        tv2.setText("Album: " + (String) map.get("ALBUM"));
+        tv3.setText("Artist: " + (String) map.get("ARTIST"));
+        tv4.setText("Description: " + (String) map.get("DESCRIPTION"));
+        tv5.setText("Data: " + (String) map.get("DATA"));
+        tv6.setText("MIME_TYPE: " + (String) map.get("MIME_TYPE"));
     }
 
     private synchronized void setPlaying(boolean playing) {
@@ -202,8 +210,9 @@ public class VideoActivity extends Activity implements IVideoCallback {
 
     public void playVideo(View view) {
         MilinkClientManager mMilinkClientManager = MainActivity.mMilinkClient.getInstance();
-        String title = (String) mVideoInfoHashMap.get("TITLE");
-        String url = (String) mVideoInfoHashMap.get("DATA");
+        Map<String, Object> map = mVideoList.get(mCurrentPosition);
+        String title = (String) map.get("TITLE");
+        String url = (String) map.get("DATA");
 
         Log.d(TAG, "url: " + url);
         Log.d(TAG, "title: " + title);
@@ -236,6 +245,40 @@ public class VideoActivity extends Activity implements IVideoCallback {
         stopTimerTask();
         setVisible(false);
         setPlaying(false);
+    }
+
+    public void prevVideo(View view) {
+        MilinkClientManager mMilinkClientManager = MainActivity.mMilinkClient.getInstance();
+        if (mCurrentPosition == 0) {
+            return;
+        }
+        mCurrentPosition--;
+        Map<String, Object> map = mVideoList.get(mCurrentPosition);
+        String title = (String) map.get("TITLE");
+        String url = (String) map.get("DATA");
+
+        setVideoInfo(mVideoList, mCurrentPosition);
+        setPlaying(false);
+
+        ReturnCode retcode = mMilinkClientManager.startPlay(url, title, 0, 0.0, MediaType.Video);
+        Log.d(TAG, "startPlay ret code: " + retcode);
+    }
+
+    public void nextVideo(View view) {
+        MilinkClientManager mMilinkClientManager = MainActivity.mMilinkClient.getInstance();
+        if (mCurrentPosition == mVideoList.size() - 1) {
+            return;
+        }
+        mCurrentPosition++;
+        Map<String, Object> map = mVideoList.get(mCurrentPosition);
+        String title = (String) map.get("TITLE");
+        String url = (String) map.get("DATA");
+
+        setVideoInfo(mVideoList, mCurrentPosition);
+        setPlaying(false);
+
+        ReturnCode retcode = mMilinkClientManager.startPlay(url, title, 0, 0.0, MediaType.Video);
+        Log.d(TAG, "startPlay ret code: " + retcode);
     }
 
     @Override
