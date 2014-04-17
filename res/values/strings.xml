@@ -9,5 +9,11 @@
     <string name="stopVideo">STOP</string>
     <string name="prevVideo">PREV</string>
     <string name="nextVideo">NEXT</string>
+    <string name="connected">连接成功！</string>
+    <string name="connectFailed">连接失败！</string>
+    <string name="paused">暂停</string>
+    <string name="playing">开始</string>
+    <string name="stopped">停止</string>
+    <string name="deviceListName">请选择设备</string>
 
 </resources>

@@ -16,9 +16,6 @@ import android.widget.SimpleAdapter;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.xiaomi.milinksdk.R;
-import com.xiaomi.milinksdk.R.id;
-import com.xiaomi.milinksdk.R.layout;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -87,23 +84,18 @@ public class VideoTabContentFragment extends Fragment {
                 R.layout.video_content_list, from, to);
         mListView.setAdapter(mSimpleAdapter);
 
-        final List<Map<String, Object>> list = videoList;
+        final ArrayList<Map<String, Object>> list = (ArrayList<Map<String, Object>>) videoList;
         mListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 Log.d(TAG, "position: " + position);
-                HashMap<String, Object> map = (HashMap<String, Object>) list.get(position);
 
                 Intent mIntent = new Intent(mContext, VideoActivity.class);
                 Bundle mBundle = new Bundle();
-                mBundle.putSerializable("videoInfo", map);
+                mBundle.putSerializable("videoInfoList", list);
+                mBundle.putInt("position", position);
                 mIntent.putExtras(mBundle);
                 startActivity(mIntent);
-
-                // String path = (String) map.get("data");
-                // Intent mIntent = new Intent(Intent.ACTION_VIEW);
-                // mIntent.setDataAndType(Uri.parse(path), "video/mp4");
-                // startActivity(mIntent);
             }
         });
 

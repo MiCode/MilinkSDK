@@ -69,8 +69,9 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onDestroy() {
-        mMilinkClientManager.close();
         super.onDestroy();
+        mMilinkClientManager.close();
+        mDeviceList.clear();
     }
 
     private class TabListener implements ActionBar.TabListener {
