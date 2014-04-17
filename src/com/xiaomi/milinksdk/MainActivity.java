@@ -29,8 +29,6 @@ public class MainActivity extends Activity {
     private String audioTabName = "audio";
     private String videoTabName = "video";
     
-    //fjsdl
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
