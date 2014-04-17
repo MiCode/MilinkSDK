@@ -28,7 +28,7 @@ public class MainActivity extends Activity {
     private String imageTabName = "image";
     private String audioTabName = "audio";
     private String videoTabName = "video";
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,9 +69,9 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onDestroy() {
+        super.onDestroy();
         mMilinkClientManager.close();
         mDeviceList.clear();
-        super.onDestroy();
     }
 
     private class TabListener implements ActionBar.TabListener {
