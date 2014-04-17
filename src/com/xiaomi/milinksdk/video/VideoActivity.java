@@ -226,20 +226,22 @@ public class VideoActivity extends Activity implements IVideoCallback {
             mTimer.cancel();
         }
         
-        setVisible(false);
     }
 
     @Override
     public void onConnected() {
         playVideo(getCurrentFocus());
+        setVisible(true);
     }
 
     @Override
     public void onConnectedFailed(ErrorCode errorCode) {
+        setVisible(false);
     }
 
     @Override
     public void onDisconnected() {
+        setVisible(false);
     }
 
     @Override
@@ -250,8 +252,8 @@ public class VideoActivity extends Activity implements IVideoCallback {
     public void onPlaying() {
         Button btn = (Button) findViewById(R.id.btnPause);
         btn.setText(R.string.pauseVideo);
-        setVisible(true);
         setPlaying(true);
+        setVisible(true);
     }
 
     @Override
