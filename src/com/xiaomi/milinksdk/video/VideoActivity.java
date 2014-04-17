@@ -333,4 +333,5 @@ public class VideoActivity extends Activity implements IVideoCallback {
     @Override
     public void onVolume(int volume) {
     }
+
 }
