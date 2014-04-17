@@ -75,7 +75,6 @@ public class MilinkClient implements MilinkClientManagerDelegate, MilinkClientMa
     @Override
     public void onDeviceFound(String deviceId, String name, DeviceType type) {
         Log.d(TAG, String.format("onDeviceFound: %s -> %s -> %s", deviceId, name, type));
-        Toast.makeText(mContext, R.string.deviceFound, Toast.LENGTH_SHORT);
         synchronized (MainActivity.mDeviceList) {
             Device device = new Device(deviceId, name, type);
             MainActivity.mDeviceList.add(device);
@@ -85,7 +84,6 @@ public class MilinkClient implements MilinkClientManagerDelegate, MilinkClientMa
     @Override
     public void onDeviceLost(String deviceId) {
         Log.d(TAG, String.format("onDeviceLost: %s", deviceId));
-        Toast.makeText(mContext, R.string.deviceLost, Toast.LENGTH_SHORT);
         synchronized (MainActivity.mDeviceList) {
             for (Device device : MainActivity.mDeviceList) {
                 if (device.id.equals(deviceId)) {
