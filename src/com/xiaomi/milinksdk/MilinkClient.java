@@ -16,18 +16,20 @@ import com.xiaomi.milinksdk.image.IImageCallback;
 public class MilinkClient implements MilinkClientManagerDelegate, MilinkClientManagerDataSource {
     private String TAG = this.getClass().getSimpleName();
     private Context mContext;
-
-    private static MilinkClientManager mMgr = null;
     private ICallback mICallback = null;
 
-    public MilinkClient() {
-    }
+    private static MilinkClientManager mMgr = null;
+    public static MilinkClient mMilinkClient = null;
 
-    public void setContext(Context context) {
+    public MilinkClient(Context context) {
         this.mContext = context;
     }
 
-    public final MilinkClientManager getInstance() {
+    public final MilinkClient getClientInstance() {
+        return mMilinkClient;
+    }
+
+    public final MilinkClientManager getManagerInstance() {
         if (mMgr == null) {
             synchronized (this) {
                 if (mMgr == null) {
