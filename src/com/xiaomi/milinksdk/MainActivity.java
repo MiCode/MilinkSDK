@@ -19,8 +19,6 @@ import com.xiaomi.milinksdk.video.VideoTabContentFragment;
 public class MainActivity extends Activity {
     private final String TAG = this.getClass().getSimpleName();
 
-    
-
     private MilinkClientManager mMilinkClientManager = null;
 
     private String imageTabName = "image";
