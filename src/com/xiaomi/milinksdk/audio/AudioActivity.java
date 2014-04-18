@@ -35,6 +35,7 @@ import com.milink.api.v1.type.ErrorCode;
 import com.milink.api.v1.type.MediaType;
 import com.milink.api.v1.type.ReturnCode;
 import com.xiaomi.milinksdk.MainActivity;
+import com.xiaomi.milinksdk.MilinkClient;
 import com.xiaomi.milinksdk.Device;
 import com.xiaomi.milinksdk.R;
 import com.xiaomi.milinksdk.video.IVideoCallback;
@@ -100,9 +101,9 @@ public class AudioActivity extends Activity implements IAudioCallback {
         setVisible(View.INVISIBLE);
         getActionBar().hide();
         if (mMilinkClientManager == null) {
-            mMilinkClientManager = MainActivity.mMilinkClient.getInstance();
+            mMilinkClientManager = MilinkClient.mMilinkClient.getManagerInstance();
         }
-        MainActivity.mMilinkClient.setCallback(this);
+        MilinkClient.mMilinkClient.setCallback(this);
     }
 
     class backButtonListener implements OnClickListener {
@@ -196,7 +197,7 @@ public class AudioActivity extends Activity implements IAudioCallback {
         }
     }
     public void setVisible(int visible) {
-        timeSeekBar.setVisibility(visible);
+        timeSeekBar.setVisibility(View.INVISIBLE);
         playPauseButton.setVisibility(visible);
         prevButton.setVisibility(visible);
         nextButton.setVisibility(visible);
@@ -259,9 +260,8 @@ public class AudioActivity extends Activity implements IAudioCallback {
 
             @Override
             public void run() {
-                MilinkClientManager mMgr = MainActivity.mMilinkClient.getInstance();
-                int len = mMgr.getPlaybackDuration();
-                int pos = mMgr.getPlaybackProgress();
+                int len = mMilinkClientManager.getPlaybackDuration();
+                int pos = mMilinkClientManager.getPlaybackProgress();
                 len = len <= 0 ? 0 : len;
                 pos = pos <= 0 ? 0 : pos;
                 String text = convertTime(pos) + "/" + convertTime(len);
