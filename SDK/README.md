@@ -127,7 +127,7 @@ API主要由1个类和2个接口组成：
 * 显示指定的图片
 
 参数
-* photoUri 图片地址，格式为：__/sdcard/1.jpg__ 或 __file:///sdcard/1.jpg__
+* photoUri 图片地址，格式为：`/sdcard/1.jpg` 或 `file:///sdcard/1.jpg`
 
 返回值
 * 见 ReturnCode
@@ -194,7 +194,7 @@ API主要由1个类和2个接口组成：
     ReturnCode startPlay(String url, String title, int iPosition, double dPosition, MediaType type);
 
 参数
-* url 音频或视频的地址，如：__http://www.youku.com/demo.m3u8__，__/sdcard/movies/demo.mp4__, __file:///sdcard/movies/demo.mp4__
+* url 音频或视频的地址，如：`http://www.youku.com/demo.m3u8`,`/sdcard/movies/demo.mp4`,`file:///sdcard/movies/demo.mp4`
 * title 内容名称
 * iPosition 开始播放的位置，单位为毫秒。
 * dPosition 开始播放的位置，单位为百分比，即播放器的进度条上的进度值。
@@ -396,6 +396,67 @@ API主要由1个类和2个接口组成：
 
 参数
 * isAuto true：表示电视机自动播放到上一首，false：表示用遥控器播放上一首。
+
+# 其他数据类型
+
+1. DeviceType
+2. ErrorCode
+3. MediaType
+4. ReturnCode
+5. SlideMode
+
+### 设备类型
+
+* DeviceType
+
+值      | 说明
+--------|-----------
+Unknown | 未知设备类型
+TV      | 电视机或电视盒  
+Speaker | 音箱
+
+### 错误代码
+
+* ErrorCode
+
+值              | 说明
+----------------|-----------
+Undefined       | 未定义
+ConnectTimeout  | 连接超时
+
+### 媒体类型
+
+* MediaType
+
+值          | 说明
+------------|-----------
+Undefined   | 未定义
+Photo       | 图片
+Audio       | 音频
+Video       | 视频
+
+### 返回值
+
+* ReturnCode
+
+值                  | 说明
+--------------------|-----------
+OK                  | 接口调用成功
+Error               | 接口调用失败
+ServiceException    | 出现服务异常
+NotConnected        | 没有连接
+NotSupport          | 不支持这个接口
+InvalidParams       | 无效参数
+InvalidUrl          | 无效URL
+
+### 幻灯模式
+
+* SlideMode
+
+值      | 说明
+--------|-----------
+Normal  | 普通模式
+Recyle  | 循环模式
 
 
 [001]: http://www.xiaomi.com/  (Xiaomi)

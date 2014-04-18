@@ -4,7 +4,7 @@ $axure.eventManager.pageLoad(
 function (e) {
 
 });
-gv_vAlignTable['u3'] = 'center';gv_vAlignTable['u21'] = 'top';document.getElementById('u13_img').tabIndex = 0;
+gv_vAlignTable['u3'] = 'center';gv_vAlignTable['u12'] = 'center';gv_vAlignTable['u19'] = 'top';document.getElementById('u13_img').tabIndex = 0;
 
 u13.style.cursor = 'pointer';
 $axure.eventManager.click('u13', function(e) {
@@ -15,18 +15,18 @@ if (true) {
 
 }
 });
-gv_vAlignTable['u10'] = 'center';gv_vAlignTable['u17'] = 'top';gv_vAlignTable['u5'] = 'center';gv_vAlignTable['u1'] = 'center';document.getElementById('u9_img').tabIndex = 0;
+document.getElementById('u17_img').tabIndex = 0;
 
-u9.style.cursor = 'pointer';
-$axure.eventManager.click('u9', function(e) {
+u17.style.cursor = 'pointer';
+$axure.eventManager.click('u17', function(e) {
 
 if (true) {
 
-	self.location.href=$axure.globalVariableProvider.getLinkUrl('图片_预览.html');
+	self.location.href=$axure.globalVariableProvider.getLinkUrl('图片_推送菜单_推送成功.html');
 
 }
 });
-gv_vAlignTable['u14'] = 'center';gv_vAlignTable['u20'] = 'top';document.getElementById('u15_img').tabIndex = 0;
+gv_vAlignTable['u22'] = 'center';gv_vAlignTable['u5'] = 'center';gv_vAlignTable['u1'] = 'center';gv_vAlignTable['u14'] = 'center';document.getElementById('u15_img').tabIndex = 0;
 
 u15.style.cursor = 'pointer';
 $axure.eventManager.click('u15', function(e) {
@@ -55,8 +55,8 @@ $axure.eventManager.click('u11', function(e) {
 
 if (true) {
 
-	self.location.href=$axure.globalVariableProvider.getLinkUrl('图片_推送菜单_推送成功.html');
+	self.location.href=$axure.globalVariableProvider.getLinkUrl('图片_预览.html');
 
 }
 });
-gv_vAlignTable['u12'] = 'center';gv_vAlignTable['u7'] = 'center';
+gv_vAlignTable['u10'] = 'center';gv_vAlignTable['u18'] = 'center';gv_vAlignTable['u7'] = 'center';

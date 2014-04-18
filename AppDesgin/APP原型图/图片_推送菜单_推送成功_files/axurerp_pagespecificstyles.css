@@ -155,52 +155,18 @@ div {
 }
 
 .u8_normal {
-    background-image: url('../图片_推送菜单_推送成功_files/u4_normal.png');
+    background-image: url('../图片_推送菜单_推送成功_files/u8_normal.png');
 }
 
 .u8_container {
     position:absolute;
-    left:48px;
-    top:783px;
-    width:480px;
-    height:75px;
-}
-
-#u8_img {
-    position:absolute;
-    left:-3px;
-    top:-3px;
-    width:486px;
-    height:81px;
-}
-
-.u9 {
-    position:absolute;
-    left:2px;
-    top:30px;
-    width:476px;
-    height:16px;
-    ;
-    ;
-    ;
-    font-family:Arial;
-    text-align:left;
-    word-wrap:break-word;
-}
-
-.u10_normal {
-    background-image: url('../图片_推送菜单_推送成功_files/u10_normal.png');
-}
-
-.u10_container {
-    position:absolute;
-    left:268px;
-    top:800px;
+    left:474px;
+    top:76px;
     width:40px;
     height:40px;
 }
 
-#u10_img {
+#u8_img {
     position:absolute;
     left:-3px;
     top:-3px;
@@ -208,59 +174,12 @@ div {
     height:46px;
 }
 
-.u11 {
+.u9 {
     position:absolute;
     left:2px;
     top:14px;
     width:36px;
     height:13px;
-    ;
-    ;
-    ;
-    font-family:Arial;
-    text-align:left;
-    word-wrap:break-word;
-}
-
-.u12_end {
-    background-image: url('../图片_推送菜单_推送成功_files/u12_end.png');
-}
-
-.u12_end {
-    position:absolute;
-    left:261px;
-    top:-5px;
-    width:14px;
-    height:20px;
-}
-
-.u12_line {
-    background-image: url('../图片_推送菜单_推送成功_files/u12_line.png');
-}
-
-.u12_line {
-    position:absolute;
-    left:0px;
-    top:4px;
-    width:270px;
-    height:3px;
-}
-
-.u12 {
-    position:absolute;
-    left:318px;
-    top:815px;
-    width:270px;
-    height:10px;
-    
-}
-
-.u13 {
-    position:absolute;
-    left:603px;
-    top:809px;
-    width:190px;
-    height:16px;
     ;
     ;
     ;

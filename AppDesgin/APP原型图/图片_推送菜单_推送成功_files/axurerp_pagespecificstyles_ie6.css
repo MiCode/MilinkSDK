@@ -15,21 +15,6 @@
 
 * html .u8_normal {
     background-image: none;
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="图片_推送菜单_推送成功_files/u4_normal.png");
-}
-
-* html .u10_normal {
-    background-image: none;
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="图片_推送菜单_推送成功_files/u10_normal.png");
-}
-
-* html .u12_end {
-    background-image: none;
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="图片_推送菜单_推送成功_files/u12_end.png");
-}
-
-* html .u12_line {
-    background-image: none;
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="图片_推送菜单_推送成功_files/u12_line.png");
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="图片_推送菜单_推送成功_files/u8_normal.png");
 }
 

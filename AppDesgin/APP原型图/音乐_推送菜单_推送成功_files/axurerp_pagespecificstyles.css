@@ -131,9 +131,9 @@ div {
 .u6_container {
     position:absolute;
     left:138px;
-    top:218px;
+    top:173px;
     width:300px;
-    height:480px;
+    height:291px;
 }
 
 #u6_img {
@@ -141,15 +141,15 @@ div {
     left:-3px;
     top:-3px;
     width:306px;
-    height:486px;
+    height:297px;
 }
 
 .u7 {
     position:absolute;
     left:2px;
-    top:232px;
+    top:122px;
     width:296px;
-    height:16px;
+    height:48px;
     ;
     ;
     ;
@@ -159,31 +159,31 @@ div {
 }
 
 .u8_normal {
-    background-image: url('../音乐_推送菜单_推送成功_files/u2_normal.png');
+    background-image: url('../音乐_推送菜单_推送成功_files/u8_normal.png');
 }
 
 .u8_container {
     position:absolute;
-    left:48px;
-    top:783px;
-    width:480px;
-    height:75px;
+    left:474px;
+    top:76px;
+    width:40px;
+    height:40px;
 }
 
 #u8_img {
     position:absolute;
     left:-3px;
     top:-3px;
-    width:486px;
-    height:81px;
+    width:46px;
+    height:46px;
 }
 
 .u9 {
     position:absolute;
     left:2px;
-    top:30px;
-    width:476px;
-    height:16px;
+    top:14px;
+    width:36px;
+    height:13px;
     ;
     ;
     ;
@@ -198,25 +198,25 @@ div {
 
 .u10_container {
     position:absolute;
-    left:467px;
-    top:800px;
-    width:40px;
-    height:40px;
+    left:66px;
+    top:545px;
+    width:90px;
+    height:43px;
 }
 
 #u10_img {
     position:absolute;
     left:-3px;
     top:-3px;
-    width:46px;
-    height:46px;
+    width:96px;
+    height:49px;
 }
 
 .u11 {
     position:absolute;
     left:2px;
-    top:14px;
-    width:36px;
+    top:15px;
+    width:86px;
     height:13px;
     ;
     ;
@@ -232,25 +232,25 @@ div {
 
 .u12_container {
     position:absolute;
-    left:61px;
-    top:800px;
-    width:40px;
-    height:40px;
+    left:183px;
+    top:545px;
+    width:90px;
+    height:43px;
 }
 
 #u12_img {
     position:absolute;
     left:-3px;
     top:-3px;
-    width:46px;
-    height:46px;
+    width:96px;
+    height:49px;
 }
 
 .u13 {
     position:absolute;
     left:2px;
-    top:14px;
-    width:36px;
+    top:15px;
+    width:86px;
     height:13px;
     ;
     ;
@@ -260,40 +260,32 @@ div {
     word-wrap:break-word;
 }
 
-#u14 {
+.u14_normal {
+    background-image: url('../音乐_推送菜单_推送成功_files/u10_normal.png');
+}
+
+.u14_container {
     position:absolute;
-    left:48px;
-    top:765px;
-    width:485px;
-    height:25px
+    left:299px;
+    top:545px;
+    width:90px;
+    height:43px;
 }
 
-.u15_normal {
-    background-image: url('../音乐_推送菜单_推送成功_files/u15_normal.png');
-}
-
-.u15_container {
-    position:absolute;
-    left:0px;
-    top:0px;
-    width:100px;
-    height:20px;
-}
-
-#u15_img {
+#u14_img {
     position:absolute;
     left:-3px;
     top:-3px;
-    width:106px;
-    height:26px;
+    width:96px;
+    height:49px;
 }
 
-.u16 {
+.u15 {
     position:absolute;
     left:2px;
-    top:2px;
-    width:96px;
-    height:16px;
+    top:15px;
+    width:86px;
+    height:13px;
     ;
     ;
     ;
@@ -302,78 +294,45 @@ div {
     word-wrap:break-word;
 }
 
-.u17_normal {
-    background-image: url('../音乐_推送菜单_推送成功_files/u17_normal.png');
+.u16_normal {
+    background-image: url('../音乐_推送菜单_推送成功_files/u10_normal.png');
 }
 
-.u17_container {
+.u16_container {
     position:absolute;
-    left:100px;
-    top:0px;
-    width:380px;
-    height:20px;
+    left:416px;
+    top:545px;
+    width:90px;
+    height:43px;
 }
 
-#u17_img {
+#u16_img {
     position:absolute;
     left:-3px;
     top:-3px;
-    width:386px;
-    height:26px;
+    width:96px;
+    height:49px;
+}
+
+.u17 {
+    position:absolute;
+    left:2px;
+    top:15px;
+    width:86px;
+    height:13px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
 }
 
 .u18 {
     position:absolute;
-    left:2px;
-    top:2px;
-    width:376px;
-    height:16px;
-    ;
-    ;
-    ;
-    font-family:Arial;
-    text-align:left;
-    word-wrap:break-word;
-}
-
-.u19_end {
-    background-image: url('../音乐_推送菜单_推送成功_files/u19_end.png');
-}
-
-.u19_end {
-    position:absolute;
-    left:62px;
-    top:-5px;
-    width:14px;
-    height:20px;
-}
-
-.u19_line {
-    background-image: url('../音乐_推送菜单_推送成功_files/u19_line.png');
-}
-
-.u19_line {
-    position:absolute;
-    left:0px;
-    top:4px;
-    width:71px;
-    height:3px;
-}
-
-.u19 {
-    position:absolute;
-    left:517px;
-    top:815px;
-    width:71px;
-    height:10px;
-    
-}
-
-.u20 {
-    position:absolute;
-    left:603px;
-    top:809px;
-    width:190px;
+    left:231px;
+    top:485px;
+    width:114px;
     height:16px;
     ;
     ;

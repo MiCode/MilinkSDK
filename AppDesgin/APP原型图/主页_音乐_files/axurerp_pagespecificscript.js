@@ -11,7 +11,7 @@ $axure.eventManager.click('u16', function(e) {
 
 if (true) {
 
-	self.location.href=$axure.globalVariableProvider.getLinkUrl('音乐_播放.html');
+	self.location.href=$axure.globalVariableProvider.getLinkUrl('音乐_详情.html');
 
 }
 });
@@ -22,7 +22,7 @@ $axure.eventManager.click('u28', function(e) {
 
 if (true) {
 
-	self.location.href=$axure.globalVariableProvider.getLinkUrl('音乐_播放.html');
+	self.location.href=$axure.globalVariableProvider.getLinkUrl('音乐_详情.html');
 
 }
 });
@@ -33,7 +33,7 @@ $axure.eventManager.click('u30', function(e) {
 
 if (true) {
 
-	self.location.href=$axure.globalVariableProvider.getLinkUrl('音乐_播放.html');
+	self.location.href=$axure.globalVariableProvider.getLinkUrl('音乐_详情.html');
 
 }
 });
@@ -44,7 +44,7 @@ $axure.eventManager.click('u32', function(e) {
 
 if (true) {
 
-	self.location.href=$axure.globalVariableProvider.getLinkUrl('音乐_播放.html');
+	self.location.href=$axure.globalVariableProvider.getLinkUrl('音乐_详情.html');
 
 }
 });
@@ -55,7 +55,7 @@ $axure.eventManager.click('u26', function(e) {
 
 if (true) {
 
-	self.location.href=$axure.globalVariableProvider.getLinkUrl('音乐_播放.html');
+	self.location.href=$axure.globalVariableProvider.getLinkUrl('音乐_详情.html');
 
 }
 });
@@ -77,7 +77,7 @@ $axure.eventManager.click('u24', function(e) {
 
 if (true) {
 
-	self.location.href=$axure.globalVariableProvider.getLinkUrl('音乐_播放.html');
+	self.location.href=$axure.globalVariableProvider.getLinkUrl('音乐_详情.html');
 
 }
 });
@@ -88,7 +88,7 @@ $axure.eventManager.click('u18', function(e) {
 
 if (true) {
 
-	self.location.href=$axure.globalVariableProvider.getLinkUrl('音乐_播放.html');
+	self.location.href=$axure.globalVariableProvider.getLinkUrl('音乐_详情.html');
 
 }
 });
@@ -99,7 +99,7 @@ $axure.eventManager.click('u20', function(e) {
 
 if (true) {
 
-	self.location.href=$axure.globalVariableProvider.getLinkUrl('音乐_播放.html');
+	self.location.href=$axure.globalVariableProvider.getLinkUrl('音乐_详情.html');
 
 }
 });
@@ -121,7 +121,7 @@ $axure.eventManager.click('u22', function(e) {
 
 if (true) {
 
-	self.location.href=$axure.globalVariableProvider.getLinkUrl('音乐_播放.html');
+	self.location.href=$axure.globalVariableProvider.getLinkUrl('音乐_详情.html');
 
 }
 });
@@ -132,7 +132,7 @@ $axure.eventManager.click('u34', function(e) {
 
 if (true) {
 
-	self.location.href=$axure.globalVariableProvider.getLinkUrl('音乐_播放.html');
+	self.location.href=$axure.globalVariableProvider.getLinkUrl('音乐_详情.html');
 
 }
 });

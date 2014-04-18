@@ -13,48 +13,28 @@
     filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="图片_预览_files/u6_normal.png");
 }
 
-* html .u8_normal {
+* html .u9_end {
     background-image: none;
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="图片_预览_files/u4_normal.png");
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="图片_预览_files/u9_end.png");
 }
 
-* html .u11_end {
+* html .u9_line {
     background-image: none;
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="图片_预览_files/u11_end.png");
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="图片_预览_files/u9_line.png");
 }
 
-* html .u11_line {
+* html .u10_normal {
     background-image: none;
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="图片_预览_files/u11_line.png");
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="图片_预览_files/u10_normal.png");
 }
 
-* html .u12_end {
+* html .u13_end {
     background-image: none;
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="图片_预览_files/u12_end.png");
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="图片_预览_files/u13_end.png");
 }
 
-* html .u12_line {
+* html .u13_line {
     background-image: none;
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="图片_预览_files/u12_line.png");
-}
-
-* html .u14_normal {
-    background-image: none;
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="图片_预览_files/u14_normal.png");
-}
-
-* html .u16_normal {
-    background-image: none;
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="图片_预览_files/u14_normal.png");
-}
-
-* html .u19_end {
-    background-image: none;
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="图片_预览_files/u19_end.png");
-}
-
-* html .u19_line {
-    background-image: none;
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="图片_预览_files/u19_line.png");
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="图片_预览_files/u13_line.png");
 }
 
