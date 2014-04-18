@@ -21,6 +21,7 @@ import com.milink.api.v1.type.MediaType;
 import com.milink.api.v1.type.ReturnCode;
 import com.xiaomi.milinksdk.Device;
 import com.xiaomi.milinksdk.MainActivity;
+import com.xiaomi.milinksdk.MilinkClient;
 import com.xiaomi.milinksdk.R;
 
 import java.text.DateFormat;
@@ -68,7 +69,7 @@ public class VideoActivity extends Activity implements IVideoCallback {
 
         setVideoInfo(mVideoList, mCurrentPosition);
         setVisible(false);
-        MainActivity.mMilinkClient.setCallback(this);
+        MilinkClient.mMilinkClient.setCallback(this);
 
     }
 
@@ -114,8 +115,8 @@ public class VideoActivity extends Activity implements IVideoCallback {
                                 return;
                             }
                             String deviceId = finalDeviceList.get(pos).id;
-                            MilinkClientManager mMilinkClientManager = MainActivity.mMilinkClient
-                                    .getInstance();
+                            MilinkClientManager mMilinkClientManager = MilinkClient.mMilinkClient
+                                    .getManagerInstance();
                             ReturnCode retcode = mMilinkClientManager.connect(deviceId,
                                     Integer.valueOf(timeout));
                             Log.d(TAG, "ret code: " + retcode);
@@ -179,7 +180,7 @@ public class VideoActivity extends Activity implements IVideoCallback {
 
             @Override
             public void run() {
-                MilinkClientManager mMgr = MainActivity.mMilinkClient.getInstance();
+                MilinkClientManager mMgr = MilinkClient.mMilinkClient.getManagerInstance();
                 int len = mMgr.getPlaybackDuration();
                 int pos = mMgr.getPlaybackProgress();
                 len = len <= 0 ? 0 : len;
@@ -211,7 +212,7 @@ public class VideoActivity extends Activity implements IVideoCallback {
     }
 
     public void playVideo(View view) {
-        MilinkClientManager mMilinkClientManager = MainActivity.mMilinkClient.getInstance();
+        MilinkClientManager mMilinkClientManager = MilinkClient.mMilinkClient.getManagerInstance();
         Map<String, Object> map = mVideoList.get(mCurrentPosition);
         String title = (String) map.get("TITLE");
         String url = (String) map.get("DATA");
@@ -227,7 +228,7 @@ public class VideoActivity extends Activity implements IVideoCallback {
     }
 
     public void pauseVideo(View view) {
-        MilinkClientManager mMilinkClientManager = MainActivity.mMilinkClient.getInstance();
+        MilinkClientManager mMilinkClientManager = MilinkClient.mMilinkClient.getManagerInstance();
         ReturnCode retcode;
         if (isVideoPlaying) {
             retcode = mMilinkClientManager.setPlaybackRate(0);
@@ -238,7 +239,7 @@ public class VideoActivity extends Activity implements IVideoCallback {
     }
 
     public void stopVideo(View view) {
-        MilinkClientManager mMilinkClientManager = MainActivity.mMilinkClient.getInstance();
+        MilinkClientManager mMilinkClientManager = MilinkClient.mMilinkClient.getManagerInstance();
         ReturnCode retcode = mMilinkClientManager.stopPlay();
         ReturnCode retcode1 = mMilinkClientManager.disconnect();
         Log.d(TAG, "stop ret code: " + retcode);
@@ -250,7 +251,7 @@ public class VideoActivity extends Activity implements IVideoCallback {
     }
 
     public void prevVideo(View view) {
-        MilinkClientManager mMilinkClientManager = MainActivity.mMilinkClient.getInstance();
+        MilinkClientManager mMilinkClientManager = MilinkClient.mMilinkClient.getManagerInstance();
         if (mCurrentPosition == 0) {
             return;
         }
@@ -267,7 +268,7 @@ public class VideoActivity extends Activity implements IVideoCallback {
     }
 
     public void nextVideo(View view) {
-        MilinkClientManager mMilinkClientManager = MainActivity.mMilinkClient.getInstance();
+        MilinkClientManager mMilinkClientManager = MilinkClient.mMilinkClient.getManagerInstance();
         if (mCurrentPosition == mVideoList.size() - 1) {
             return;
         }
@@ -333,4 +334,5 @@ public class VideoActivity extends Activity implements IVideoCallback {
     @Override
     public void onVolume(int volume) {
     }
+
 }

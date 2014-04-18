@@ -9,6 +9,7 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Menu;
+
 import com.milink.api.v1.MilinkClientManager;
 import com.milink.api.v1.type.DeviceType;
 import com.xiaomi.milinksdk.audio.AudioTabContentFragment;
@@ -20,7 +21,6 @@ import java.util.ArrayList;
 public class MainActivity extends Activity {
     private final String TAG = this.getClass().getSimpleName();
 
-    public final static MilinkClient mMilinkClient = new MilinkClient();
     public final static ArrayList<Device> mDeviceList = new ArrayList<Device>();
 
     private MilinkClientManager mMilinkClientManager = null;
@@ -55,10 +55,10 @@ public class MainActivity extends Activity {
 
         Log.d(TAG, "onCreate");
 
-        mMilinkClient.setContext(this);
-        mMilinkClientManager = mMilinkClient.getInstance();
-        mMilinkClientManager.setDelegate(mMilinkClient);
-        mMilinkClientManager.setDataSource(mMilinkClient);
+        MilinkClient.mMilinkClient = new MilinkClient(this);
+        mMilinkClientManager = MilinkClient.mMilinkClient.getManagerInstance();
+        mMilinkClientManager.setDelegate(MilinkClient.mMilinkClient);
+        mMilinkClientManager.setDataSource(MilinkClient.mMilinkClient);
         mMilinkClientManager.setDeviceName("zhgnphone");
         mMilinkClientManager.open();
 

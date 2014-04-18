@@ -3,6 +3,7 @@ package com.xiaomi.milinksdk;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.milink.api.v1.MilinkClientManager;
 import com.milink.api.v1.MilinkClientManagerDataSource;
@@ -14,23 +15,25 @@ import com.xiaomi.milinksdk.image.IImageCallback;
 
 public class MilinkClient implements MilinkClientManagerDelegate, MilinkClientManagerDataSource {
     private String TAG = this.getClass().getSimpleName();
-    private Context context;
-
-    private static MilinkClientManager mMgr = null;
+    private Context mContext;
     private ICallback mICallback = null;
 
-    public MilinkClient() {
+    private static MilinkClientManager mMgr = null;
+    public static MilinkClient mMilinkClient = null;
+
+    public MilinkClient(Context context) {
+        this.mContext = context;
     }
 
-    public void setContext(Context context) {
-        this.context = context;
+    public final MilinkClient getClientInstance() {
+        return mMilinkClient;
     }
 
-    public final MilinkClientManager getInstance() {
+    public final MilinkClientManager getManagerInstance() {
         if (mMgr == null) {
             synchronized (this) {
                 if (mMgr == null) {
-                    mMgr = new MilinkClientManager(context);
+                    mMgr = new MilinkClientManager(mContext);
                 }
             }
         }
