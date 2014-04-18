@@ -35,13 +35,13 @@ public class AudioActivity extends Activity implements IAudioCallback {
     private TextView titleTextView;
     private TextView detailTextView;
     private Button playPauseButton;
-    private Button prevButton; // TODO
-    private Button nextButton; // TODO
-    private Button stopButton; // TODO
+    private Button prevButton;
+    private Button nextButton;
+    private Button stopButton;
     private SeekBar timeSeekBar;
     private Button castButton;
     private TextView timeTextView;
-    private int position = -1; // 歌曲的位置
+    private int position = -1;
     private AudioData mAudioData;
     private boolean isPlaying = true;
     private Timer mTimer = null;
@@ -58,6 +58,7 @@ public class AudioActivity extends Activity implements IAudioCallback {
             }
         };
     };
+
     void findViews() {
         backButton = (Button) findViewById(R.id.back_button);
         titleTextView = (TextView) findViewById(R.id.audio_title_textView);
@@ -110,7 +111,6 @@ public class AudioActivity extends Activity implements IAudioCallback {
         @Override
         public void onClick(View v) {
             stopPlay();
-
         }
     }
 
@@ -118,9 +118,11 @@ public class AudioActivity extends Activity implements IAudioCallback {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progresecond, boolean fromUser) {
         }
+
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {
         }
+
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
         }
@@ -186,6 +188,7 @@ public class AudioActivity extends Activity implements IAudioCallback {
                     .create().show();
         }
     }
+
     public void setVisible(int visible) {
         timeSeekBar.setVisibility(View.INVISIBLE);
         playPauseButton.setVisibility(visible);
@@ -194,6 +197,7 @@ public class AudioActivity extends Activity implements IAudioCallback {
         stopButton.setVisibility(visible);
         timeTextView.setVisibility(visible);
     }
+
     @Override
     public void onConnected() {
         setVisible(View.VISIBLE);
@@ -208,7 +212,7 @@ public class AudioActivity extends Activity implements IAudioCallback {
     @Override
     public void onDisconnected() {
         setVisible(View.INVISIBLE);
-        //TODO
+        // TODO
     }
 
     @Override
@@ -244,6 +248,7 @@ public class AudioActivity extends Activity implements IAudioCallback {
             nextPlay();
         }
     }
+
     private void startTimerTask() {
         mTimer = new Timer();
         mTimerTask = new TimerTask() {
@@ -269,6 +274,7 @@ public class AudioActivity extends Activity implements IAudioCallback {
             mTimer = null;
         }
     }
+
     private void stopPlay() {
         mMilinkClientManager.stopPlay();
         playPauseButton.setBackgroundResource(R.drawable.icon_audio_play);
@@ -276,6 +282,7 @@ public class AudioActivity extends Activity implements IAudioCallback {
         stopTimerTask();
         setVisible(View.INVISIBLE);
     }
+
     private void play() {
         mMilinkClientManager.startPlay(mAudioData.getUri(), mAudioData.getTitle(), 0, 0,
                 MediaType.Audio);

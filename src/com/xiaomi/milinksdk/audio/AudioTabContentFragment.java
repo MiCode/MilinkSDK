@@ -57,8 +57,8 @@ public class AudioTabContentFragment extends Fragment {
     private ArrayList<Map<String, Object>> getData() {
         ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
         Map<String, Object> map = null;
-        ArrayList<AudioData> musicList = AudioUtil.getAudioData(mContext);
-        for (AudioData mAudioData : musicList) {
+        ArrayList<AudioData> audioList = AudioUtil.getAudioData(mContext);
+        for (AudioData mAudioData : audioList) {
             map = new HashMap<String, Object>();
             map.put("name", mAudioData.getTitle());
             map.put("singer", mAudioData.getSinger());
