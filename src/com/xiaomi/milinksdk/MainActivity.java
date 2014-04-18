@@ -16,12 +16,8 @@ import com.xiaomi.milinksdk.audio.AudioTabContentFragment;
 import com.xiaomi.milinksdk.image.ImageTabContentFragment;
 import com.xiaomi.milinksdk.video.VideoTabContentFragment;
 
-import java.util.ArrayList;
-
 public class MainActivity extends Activity {
     private final String TAG = this.getClass().getSimpleName();
-
-    public final static ArrayList<Device> mDeviceList = new ArrayList<Device>();
 
     private MilinkClientManager mMilinkClientManager = null;
 
@@ -63,7 +59,7 @@ public class MainActivity extends Activity {
         mMilinkClientManager.open();
 
         Device nullDevice = new Device("127.0.0.1", "Local Device", DeviceType.Unknown);
-        mDeviceList.add(nullDevice);
+        MilinkClient.mDeviceList.add(nullDevice);
 
     }
 
@@ -71,7 +67,7 @@ public class MainActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         mMilinkClientManager.close();
-        mDeviceList.clear();
+        MilinkClient.mDeviceList.clear();
     }
 
     private class TabListener implements ActionBar.TabListener {

@@ -3,7 +3,6 @@ package com.xiaomi.milinksdk;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.milink.api.v1.MilinkClientManager;
 import com.milink.api.v1.MilinkClientManagerDataSource;
@@ -13,6 +12,8 @@ import com.milink.api.v1.type.ErrorCode;
 import com.xiaomi.milinksdk.audio.IAudioCallback;
 import com.xiaomi.milinksdk.image.IImageCallback;
 
+import java.util.ArrayList;
+
 public class MilinkClient implements MilinkClientManagerDelegate, MilinkClientManagerDataSource {
     private String TAG = this.getClass().getSimpleName();
     private Context mContext;
@@ -20,6 +21,7 @@ public class MilinkClient implements MilinkClientManagerDelegate, MilinkClientMa
 
     private static MilinkClientManager mMgr = null;
     public static MilinkClient mMilinkClient = null;
+    public final static ArrayList<Device> mDeviceList = new ArrayList<Device>();
 
     public MilinkClient(Context context) {
         this.mContext = context;
@@ -77,19 +79,19 @@ public class MilinkClient implements MilinkClientManagerDelegate, MilinkClientMa
     @Override
     public void onDeviceFound(String deviceId, String name, DeviceType type) {
         Log.d(TAG, String.format("onDeviceFound: %s -> %s -> %s", deviceId, name, type));
-        synchronized (MainActivity.mDeviceList) {
+        synchronized (mDeviceList) {
             Device device = new Device(deviceId, name, type);
-            MainActivity.mDeviceList.add(device);
+            MilinkClient.mDeviceList.add(device);
         }
     }
 
     @Override
     public void onDeviceLost(String deviceId) {
         Log.d(TAG, String.format("onDeviceLost: %s", deviceId));
-        synchronized (MainActivity.mDeviceList) {
-            for (Device device : MainActivity.mDeviceList) {
+        synchronized (mDeviceList) {
+            for (Device device : MilinkClient.mDeviceList) {
                 if (device.id.equals(deviceId)) {
-                    MainActivity.mDeviceList.remove(device);
+                    MilinkClient.mDeviceList.remove(device);
                     break;
                 }
             }

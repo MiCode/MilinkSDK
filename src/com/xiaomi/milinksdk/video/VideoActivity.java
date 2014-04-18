@@ -20,7 +20,6 @@ import com.milink.api.v1.type.ErrorCode;
 import com.milink.api.v1.type.MediaType;
 import com.milink.api.v1.type.ReturnCode;
 import com.xiaomi.milinksdk.Device;
-import com.xiaomi.milinksdk.MainActivity;
 import com.xiaomi.milinksdk.MilinkClient;
 import com.xiaomi.milinksdk.R;
 
@@ -94,8 +93,8 @@ public class VideoActivity extends Activity implements IVideoCallback {
             Log.d(TAG, "push");
 
             ArrayList<Device> deviceList = null;
-            synchronized (MainActivity.mDeviceList) {
-                deviceList = (ArrayList<Device>) MainActivity.mDeviceList.clone();
+            synchronized (MilinkClient.mDeviceList) {
+                deviceList = (ArrayList<Device>) MilinkClient.mDeviceList.clone();
             }
             final ArrayList<Device> finalDeviceList = deviceList;
             final ArrayList<String> names = new ArrayList<String>();
