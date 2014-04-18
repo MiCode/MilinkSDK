@@ -4,18 +4,14 @@ package com.xiaomi.milinksdk.audio;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -27,18 +23,15 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
 import com.milink.api.v1.MilinkClientManager;
 import com.milink.api.v1.type.ErrorCode;
 import com.milink.api.v1.type.MediaType;
 import com.milink.api.v1.type.ReturnCode;
-import com.xiaomi.milinksdk.MainActivity;
 import com.xiaomi.milinksdk.MilinkClient;
 import com.xiaomi.milinksdk.Device;
 import com.xiaomi.milinksdk.R;
-import com.xiaomi.milinksdk.video.IVideoCallback;
 
 public class AudioActivity extends Activity implements IAudioCallback {
     private Button backButton;
@@ -169,8 +162,8 @@ public class AudioActivity extends Activity implements IAudioCallback {
         @Override
         public void onClick(View v) {
             ArrayList<Device> deviceList = null;
-            synchronized (MainActivity.mDeviceList) {
-                deviceList = (ArrayList<Device>) MainActivity.mDeviceList.clone();
+            synchronized (MilinkClient.mDeviceList) {
+                deviceList = (ArrayList<Device>) MilinkClient.mDeviceList.clone();
             }
             final ArrayList<Device> finalDeviceList = deviceList;
             final ArrayList<String> names = new ArrayList<String>();
