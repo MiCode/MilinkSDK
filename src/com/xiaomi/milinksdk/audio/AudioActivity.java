@@ -1,21 +1,14 @@
 
 package com.xiaomi.milinksdk.audio;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Random;
-import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -27,7 +20,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
 import com.milink.api.v1.MilinkClientManager;
@@ -38,7 +30,6 @@ import com.xiaomi.milinksdk.MainActivity;
 import com.xiaomi.milinksdk.MilinkClient;
 import com.xiaomi.milinksdk.Device;
 import com.xiaomi.milinksdk.R;
-import com.xiaomi.milinksdk.video.IVideoCallback;
 
 public class AudioActivity extends Activity implements IAudioCallback {
     private Button backButton;
@@ -257,24 +248,17 @@ public class AudioActivity extends Activity implements IAudioCallback {
     private void startTimerTask() {
         mTimer = new Timer();
         mTimerTask = new TimerTask() {
-
             @Override
             public void run() {
-                int len = mMilinkClientManager.getPlaybackDuration();
-                int pos = mMilinkClientManager.getPlaybackProgress();
+                long len = mMilinkClientManager.getPlaybackDuration();
+                long pos = mMilinkClientManager.getPlaybackProgress();
                 len = len <= 0 ? 0 : len;
                 pos = pos <= 0 ? 0 : pos;
-                String text = convertTime(pos) + "/" + convertTime(len);
+                String text = AudioUtil.formatTime(pos) + "/" + AudioUtil.formatTime(len);
                 Message msg = Message.obtain();
                 msg.obj = text;
                 msg.what = AUDIO_DURATION;
                 handler.sendMessage(msg);
-            }
-
-            private String convertTime(int time) {
-                DateFormat format = new SimpleDateFormat("mm:ss");
-                format.setTimeZone(TimeZone.getTimeZone("GMT+00:00"));
-                return format.format(time);
             }
         };
         mTimer.schedule(mTimerTask, VIDEO_SEP_TIME, VIDEO_SEP_TIME);

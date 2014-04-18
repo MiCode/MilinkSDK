@@ -1,4 +1,4 @@
-package com.xiaomi.milinksdk.audio;
+package comAudioData.xiaomi.milinksdk.audio;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -20,9 +20,9 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
+import android.content.pmAudioData.ActivityInfo;
+import android.content.pmAudioData.PackageManager;
+import android.content.pmAudioData.ResolveInfo;
 import android.database.Cursor;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -41,7 +41,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
  
-import com.xiaomi.milinksdk.R;
+import comAudioData.xiaomi.milinksdk.R;
 
 public class AudioTabContentFragment extends Fragment {
     private Context mContext;
@@ -80,11 +80,11 @@ public class AudioTabContentFragment extends Fragment {
         ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
         Map<String, Object> map = null;
         ArrayList<AudioData> musicList = AudioUtil.getAudioData(mContext);
-        for (AudioData m : musicList) {
+        for (AudioData mAudioData : musicList) {
             map = new HashMap<String, Object>();
-            map.put("name", m.getTitle());
-            map.put("singer", m.getSinger());
-            map.put("time", AudioUtil.formatTime(m.getTime()));
+            map.put("name", mAudioData.getTitle());
+            map.put("singer", mAudioData.getSinger());
+            map.put("time", AudioUtil.formatTime(mAudioData.getTime()));
             list.add(map);
         }
         return list;
