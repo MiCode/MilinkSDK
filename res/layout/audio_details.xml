@@ -7,7 +7,7 @@
     android:orientation="vertical" >
 
     <RelativeLayout
-        android:id="@+id/music_title"
+        android:id="@+id/audio_title"
         android:layout_width="fill_parent"
         android:layout_height="80dip"
         android:layout_alignParentTop="true"
@@ -29,7 +29,7 @@
                 android:background="@drawable/icon_music_cast" />
 
             <TextView
-                android:id="@+id/title_textView"
+                android:id="@+id/audio_title_textView"
                 android:layout_width="fill_parent"
                 android:layout_height="80dip"
                 android:layout_toRightOf="@id/back_button"
@@ -37,9 +37,22 @@
                 android:gravity="center"
                 android:textSize="25sp" />
     </RelativeLayout>
-
     <RelativeLayout
-        android:id="@+id/music_operate"
+        android:id="@+id/audio_detail"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/audio_title"
+        android:orientation="horizontal">
+            <TextView
+                android:id="@+id/audio_detail_textView"
+                android:layout_width="fill_parent"
+                android:layout_height="80dip"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:textSize="20sp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/audio_operate"
         android:layout_width="fill_parent"
         android:layout_height="100dip"
         android:layout_alignParentBottom="true"
@@ -52,6 +65,7 @@
             android:layout_marginLeft="10dip"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="20dip"
+            android:background="@drawable/icon_audio_pause"
             />
         <Button
             android:id="@+id/stop_audio_button"
@@ -77,13 +91,20 @@
             android:layout_alignTop="@id/playPause_button"
             android:background="@drawable/icon_audio_next"
             />
+        <TextView
+            android:id="@+id/audio_time_textview"
+            android:layout_width="60dip"
+            android:layout_height="60dip"
+            android:layout_toRightOf="@id/next_audio_button"
+            android:layout_alignTop="@id/playPause_button"
+            android:textSize="20sp" />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/music_seekbar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/music_operate"
+        android:layout_above="@id/audio_operate"
         android:layout_gravity="center_vertical">
         <SeekBar
             android:id="@+id/time_seekBar"
