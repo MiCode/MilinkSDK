@@ -29,7 +29,7 @@ import com.xiaomi.milinksdk.R;
 import java.util.ArrayList;
 
 public class ImageActivity extends Activity implements IImageCallback{
-    
+
     public static final int LEFT = 0;
     public static final int RIGHT = 1;
     private String timeout = "5000";
@@ -45,7 +45,7 @@ public class ImageActivity extends Activity implements IImageCallback{
     Photos photos; //图片的集合
     String path = ""; //图片路径
     Handler uiHandler = null; // uiHandler处理图片的变化
-    
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.image_details);
@@ -94,7 +94,7 @@ public class ImageActivity extends Activity implements IImageCallback{
                 }
             };
         };
-        
+
         imageView.setOnTouchListener(new OnTouchListener() {
             MotionEvent begin = null, end = null;
             float beginX = 0, endX = 0;
@@ -133,7 +133,7 @@ public class ImageActivity extends Activity implements IImageCallback{
             }
         });
     }
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuItem mMenuItem = menu.add("push");
@@ -142,7 +142,7 @@ public class ImageActivity extends Activity implements IImageCallback{
 
         return true;
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getTitle().equals("push")) {
@@ -184,7 +184,7 @@ public class ImageActivity extends Activity implements IImageCallback{
         }
         return false;
     }
-    
+
     public void move() {
         photos = (Photos) bundle.getSerializable("photos");
         path = photos.get(index).getFilePath();
@@ -197,7 +197,7 @@ public class ImageActivity extends Activity implements IImageCallback{
         Log.v("image", "" + mMilinkClientManager.startShow());
         showPhoto(path);
     }
-    
+
     public void showPhoto(String path) {
         MilinkClientManager mMilinkClientManager = MilinkClient.mMilinkClient.getManagerInstance();
         Log.v("image path", path);
