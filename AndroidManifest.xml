@@ -34,6 +34,9 @@
         </activity>
         <activity android:name=".audio.AudioActivity" >
         </activity>
+        <activity android:name=".image.ImageActivity">
+            
+        </activity>
     </application>
 
 </manifest>
