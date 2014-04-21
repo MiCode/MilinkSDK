@@ -19,7 +19,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.xiaomi.milinksdk.R;
+import com.milink.uniplay.R;
 
 import java.io.Serializable;
 import java.util.ArrayList;

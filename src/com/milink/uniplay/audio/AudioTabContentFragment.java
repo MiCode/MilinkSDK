@@ -20,13 +20,9 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-<<<<<<< HEAD:src/com/milink/uniplay/audio/AudioTabContentFragment.java
  
 import com.milink.uniplay.R;
 
-=======
-import com.xiaomi.milinksdk.R;
->>>>>>> 7e9de8aa049bdd73cafc3cc05d2d945378d9ddd1:src/com/xiaomi/milinksdk/audio/AudioTabContentFragment.java
 public class AudioTabContentFragment extends Fragment {
     private Context mContext;
     public AudioTabContentFragment(Context context) {

@@ -5,8 +5,8 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="11"
-        android:targetSdkVersion="18" />
+        android:minSdkVersion="16"
+        android:targetSdkVersion="19" />
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -30,18 +30,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
-        <activity android:name="com.milink.uniplay.video.VideoActivity"></activity>
-        <activity android:name="com.milink.uniplay.audio.AudioActivity"></activity>
-=======
-        <activity android:name=".video.VideoActivity" >
-        </activity>
-        <activity android:name=".audio.AudioActivity" >
-        </activity>
-        <activity android:name=".image.ImageActivity">
-            
-        </activity>
->>>>>>> 7e9de8aa049bdd73cafc3cc05d2d945378d9ddd1
+        <activity android:name=".audio.AudioActivity"></activity>
+        <activity android:name=".image.ImageActivity"></activity>
+        <activity android:name=".video.VideoActivity"></activity>
     </application>
 
 </manifest>
