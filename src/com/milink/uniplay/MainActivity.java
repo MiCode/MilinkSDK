@@ -1,5 +1,5 @@
 
-package com.xiaomi.milinksdk;
+package com.milink.uniplay;
 
 import android.os.Bundle;
 import android.app.ActionBar;
@@ -12,9 +12,10 @@ import android.view.Menu;
 
 import com.milink.api.v1.MilinkClientManager;
 import com.milink.api.v1.type.DeviceType;
-import com.xiaomi.milinksdk.audio.AudioTabContentFragment;
-import com.xiaomi.milinksdk.image.ImageTabContentFragment;
-import com.xiaomi.milinksdk.video.VideoTabContentFragment;
+import com.milink.uniplay.audio.AudioTabContentFragment;
+import com.milink.uniplay.image.ImageTabContentFragment;
+import com.milink.uniplay.video.VideoTabContentFragment;
+import com.milink.uniplay.R;
 
 public class MainActivity extends Activity {
     private final String TAG = this.getClass().getSimpleName();

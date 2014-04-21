@@ -1,4 +1,4 @@
-package com.xiaomi.milinksdk.audio;
+package com.milink.uniplay.audio;
 
 import java.io.IOException;
 import java.util.ArrayList;

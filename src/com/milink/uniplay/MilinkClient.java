@@ -1,5 +1,5 @@
 
-package com.xiaomi.milinksdk;
+package com.milink.uniplay;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,8 +9,8 @@ import com.milink.api.v1.MilinkClientManagerDataSource;
 import com.milink.api.v1.MilinkClientManagerDelegate;
 import com.milink.api.v1.type.DeviceType;
 import com.milink.api.v1.type.ErrorCode;
-import com.xiaomi.milinksdk.audio.IAudioCallback;
-import com.xiaomi.milinksdk.image.IImageCallback;
+import com.milink.uniplay.audio.IAudioCallback;
+import com.milink.uniplay.image.IImageCallback;
 
 import java.util.ArrayList;
 

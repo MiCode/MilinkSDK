@@ -1,5 +1,5 @@
 
-package com.xiaomi.milinksdk;
+package com.milink.uniplay;
 
 import com.milink.api.v1.type.DeviceType;
 

@@ -1,6 +1,6 @@
-package com.xiaomi.milinksdk.audio;
+package com.milink.uniplay.audio;
 
-import com.xiaomi.milinksdk.ICallback;
+import com.milink.uniplay.ICallback;
 
 public interface IAudioCallback extends ICallback {
     public void onNextAudio(boolean isAuto);

@@ -1,4 +1,4 @@
-package com.xiaomi.milinksdk.audio;
+package com.milink.uniplay.audio;
 
 public class AudioData {
     private int mId;

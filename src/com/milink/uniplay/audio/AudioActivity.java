@@ -1,5 +1,5 @@
 
-package com.xiaomi.milinksdk.audio;
+package com.milink.uniplay.audio;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -29,9 +29,9 @@ import com.milink.api.v1.MilinkClientManager;
 import com.milink.api.v1.type.ErrorCode;
 import com.milink.api.v1.type.MediaType;
 import com.milink.api.v1.type.ReturnCode;
-import com.xiaomi.milinksdk.MilinkClient;
-import com.xiaomi.milinksdk.Device;
-import com.xiaomi.milinksdk.R;
+import com.milink.uniplay.Device;
+import com.milink.uniplay.MilinkClient;
+import com.milink.uniplay.R;
 
 public class AudioActivity extends Activity implements IAudioCallback {
     private Button backButton;

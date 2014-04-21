@@ -1,4 +1,4 @@
-package com.xiaomi.milinksdk.video;
+package com.milink.uniplay.video;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -15,7 +15,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.AdapterView.OnItemClickListener;
 
-import com.xiaomi.milinksdk.R;
+import com.milink.uniplay.R;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

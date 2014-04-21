@@ -1,4 +1,4 @@
-package com.xiaomi.milinksdk.audio;
+package com.milink.uniplay.audio;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
  
-import com.xiaomi.milinksdk.R;
+import com.milink.uniplay.R;
 
 public class AudioTabContentFragment extends Fragment {
     private Context mContext;

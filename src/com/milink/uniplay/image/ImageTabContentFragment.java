@@ -1,4 +1,4 @@
-package com.xiaomi.milinksdk.image;
+package com.milink.uniplay.image;
 
 import android.app.Fragment;
 import android.content.Context;

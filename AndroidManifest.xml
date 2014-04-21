@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.xiaomi.milinksdk"
+    package="com.milink.uniplay"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -22,7 +22,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.xiaomi.milinksdk.MainActivity"
+            android:name="com.milink.uniplay.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,10 +30,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".video.VideoActivity" >
-        </activity>
-        <activity android:name=".audio.AudioActivity" >
-        </activity>
+        <activity android:name="com.milink.uniplay.video.VideoActivity"></activity>
+        <activity android:name="com.milink.uniplay.audio.AudioActivity"></activity>
     </application>
 
 </manifest>

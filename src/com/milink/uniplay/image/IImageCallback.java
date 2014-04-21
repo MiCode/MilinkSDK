@@ -1,6 +1,6 @@
-package com.xiaomi.milinksdk.image;
+package com.milink.uniplay.image;
 
-import com.xiaomi.milinksdk.ICallback;
+import com.milink.uniplay.ICallback;
 
 public interface IImageCallback extends ICallback {
     public String getPrevPhoto(String uri, boolean isRecyle);

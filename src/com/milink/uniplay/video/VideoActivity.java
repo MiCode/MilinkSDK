@@ -1,5 +1,5 @@
 
-package com.xiaomi.milinksdk.video;
+package com.milink.uniplay.video;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -19,9 +19,9 @@ import com.milink.api.v1.MilinkClientManager;
 import com.milink.api.v1.type.ErrorCode;
 import com.milink.api.v1.type.MediaType;
 import com.milink.api.v1.type.ReturnCode;
-import com.xiaomi.milinksdk.Device;
-import com.xiaomi.milinksdk.MilinkClient;
-import com.xiaomi.milinksdk.R;
+import com.milink.uniplay.Device;
+import com.milink.uniplay.MilinkClient;
+import com.milink.uniplay.R;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
