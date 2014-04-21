@@ -1,3 +1,3 @@
-MilinkSDK
+UniPlay
 =========
 Modify sdk readme.
