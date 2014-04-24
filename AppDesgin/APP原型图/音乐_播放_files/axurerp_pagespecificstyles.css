@@ -1,0 +1,479 @@
+﻿body {
+    margin: 0px;
+}
+
+div {
+    background-repeat: no-repeat;
+}
+
+.raw_image {
+    width: 100%;
+    height: 100%;
+}
+
+.preload {
+    display: none;
+}
+#main_container {
+}
+
+.form_sketch {
+    border-color: transparent;
+    background-color: transparent;
+}
+
+.u0_normal {
+    background-image: url('../音乐_播放_files/u0_normal.png');
+}
+
+.u0_container {
+    position:absolute;
+    left:48px;
+    top:58px;
+    width:480px;
+    height:800px;
+}
+
+#u0_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:486px;
+    height:806px;
+}
+
+.u1 {
+    position:absolute;
+    left:2px;
+    top:392px;
+    width:476px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u2_normal {
+    background-image: url('../音乐_播放_files/u2_normal.png');
+}
+
+.u2_container {
+    position:absolute;
+    left:48px;
+    top:58px;
+    width:480px;
+    height:75px;
+}
+
+#u2_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:486px;
+    height:81px;
+}
+
+.u3 {
+    position:absolute;
+    left:2px;
+    top:30px;
+    width:476px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u4_normal {
+    background-image: url('../音乐_播放_files/u4_normal.png');
+}
+
+.u4_container {
+    position:absolute;
+    left:61px;
+    top:76px;
+    width:100px;
+    height:40px;
+}
+
+#u4_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:106px;
+    height:46px;
+}
+
+.u5 {
+    position:absolute;
+    left:2px;
+    top:12px;
+    width:96px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u6_normal {
+    background-image: url('../音乐_播放_files/u6_normal.png');
+}
+
+.u6_container {
+    position:absolute;
+    left:138px;
+    top:218px;
+    width:300px;
+    height:480px;
+}
+
+#u6_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:306px;
+    height:486px;
+}
+
+.u7 {
+    position:absolute;
+    left:2px;
+    top:232px;
+    width:296px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u8_normal {
+    background-image: url('../音乐_播放_files/u2_normal.png');
+}
+
+.u8_container {
+    position:absolute;
+    left:48px;
+    top:783px;
+    width:480px;
+    height:75px;
+}
+
+#u8_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:486px;
+    height:81px;
+}
+
+.u9 {
+    position:absolute;
+    left:2px;
+    top:30px;
+    width:476px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u10_normal {
+    background-image: url('../音乐_播放_files/u10_normal.png');
+}
+
+.u10_container {
+    position:absolute;
+    left:467px;
+    top:800px;
+    width:40px;
+    height:40px;
+}
+
+#u10_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:46px;
+    height:46px;
+}
+
+.u11 {
+    position:absolute;
+    left:2px;
+    top:14px;
+    width:36px;
+    height:13px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u12_normal {
+    background-image: url('../音乐_播放_files/u10_normal.png');
+}
+
+.u12_container {
+    position:absolute;
+    left:61px;
+    top:800px;
+    width:40px;
+    height:40px;
+}
+
+#u12_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:46px;
+    height:46px;
+}
+
+.u13 {
+    position:absolute;
+    left:2px;
+    top:14px;
+    width:36px;
+    height:13px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+#u14 {
+    position:absolute;
+    left:48px;
+    top:765px;
+    width:485px;
+    height:25px
+}
+
+.u15_normal {
+    background-image: url('../音乐_播放_files/u15_normal.png');
+}
+
+.u15_container {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:100px;
+    height:20px;
+}
+
+#u15_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:106px;
+    height:26px;
+}
+
+.u16 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:96px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u17_normal {
+    background-image: url('../音乐_播放_files/u17_normal.png');
+}
+
+.u17_container {
+    position:absolute;
+    left:100px;
+    top:0px;
+    width:380px;
+    height:20px;
+}
+
+#u17_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:386px;
+    height:26px;
+}
+
+.u18 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:376px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u19_end {
+    background-image: url('../音乐_播放_files/u19_end.png');
+}
+
+.u19_end {
+    position:absolute;
+    left:96px;
+    top:-5px;
+    width:14px;
+    height:20px;
+}
+
+.u19_line {
+    background-image: url('../音乐_播放_files/u19_line.png');
+}
+
+.u19_line {
+    position:absolute;
+    left:0px;
+    top:4px;
+    width:105px;
+    height:3px;
+}
+
+.u19 {
+    position:absolute;
+    left:467px;
+    top:773px;
+    width:105px;
+    height:10px;
+    
+}
+
+.u20 {
+    position:absolute;
+    left:588px;
+    top:770px;
+    width:45px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u21 {
+    position:absolute;
+    left:61px;
+    top:911px;
+    width:63px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u22_end {
+    background-image: url('../音乐_播放_files/u22_end.png');
+}
+
+.u22_end {
+    position:absolute;
+    left:-5px;
+    top:42px;
+    width:20px;
+    height:14px;
+}
+
+.u22_line {
+    background-image: url('../音乐_播放_files/u22_line.png');
+}
+
+.u22_line {
+    position:absolute;
+    left:4px;
+    top:0px;
+    width:3px;
+    height:51px;
+}
+
+.u22 {
+    position:absolute;
+    left:76px;
+    top:850px;
+    width:10px;
+    height:51px;
+    
+}
+
+.u23_end {
+    background-image: url('../音乐_播放_files/u23_end.png');
+}
+
+.u23_end {
+    position:absolute;
+    left:68px;
+    top:-5px;
+    width:14px;
+    height:20px;
+}
+
+.u23_line {
+    background-image: url('../音乐_播放_files/u23_line.png');
+}
+
+.u23_line {
+    position:absolute;
+    left:0px;
+    top:4px;
+    width:77px;
+    height:3px;
+}
+
+.u23 {
+    position:absolute;
+    left:517px;
+    top:815px;
+    width:77px;
+    height:10px;
+    
+}
+
+.u24 {
+    position:absolute;
+    left:604px;
+    top:809px;
+    width:189px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
