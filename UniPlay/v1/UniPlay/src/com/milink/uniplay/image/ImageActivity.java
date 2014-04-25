@@ -4,16 +4,12 @@ package com.milink.uniplay.image;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.BitmapFactory.Options;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -25,33 +21,34 @@ import android.widget.Toast;
 import com.milink.api.v1.MilinkClientManager;
 import com.milink.api.v1.type.DeviceType;
 import com.milink.api.v1.type.ErrorCode;
-import com.milink.api.v1.type.MediaType;
 import com.milink.api.v1.type.ReturnCode;
+import com.milink.api.v1.type.SlideMode;
 import com.milink.uniplay.Device;
 import com.milink.uniplay.MilinkClient;
 import com.milink.uniplay.R;
-import com.milink.uniplay.image.ImageTabContentFragment.Photos;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class ImageActivity extends Activity implements IImageCallback {
     private String TAG = ImageActivity.class.getSimpleName();
 
     private final int LEFT = 0;
     private final int RIGHT = 1;
-    private final int TIMEOUT = 5000;
+    private final int CONNECT_TIME_OUT = 5000;
+    private final int SLIDE_DURATION = 5000;
+
+    private int mDeviceCurrentPosition;
 
     private MilinkClientManager mMilinkClientManager = null;
 
-//    private List<ImageInfo> mImageList = null;
+    // private List<ImageInfo> mImageList = null;
     private List<String> imageTitleList = null;
     private List<String> imagePathList = null;
     private int mCurrentPosition = 0;
     private ImageView mImageView = null;
 
-    private boolean connected = false;
+    private Menu mOptionsMenu = null;
 
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
@@ -115,9 +112,16 @@ public class ImageActivity extends Activity implements IImageCallback {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuItem mMenuItem = menu.add("push");
-        mMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        mMenuItem.setIcon(android.R.drawable.ic_menu_share);
+        mOptionsMenu = menu;
+
+        MenuItem mi = mOptionsMenu.add("slide");
+        mi.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        mi.setIcon(android.R.drawable.ic_menu_slideshow);
+        mi.setVisible(false);
+
+        mi = mOptionsMenu.add("push");
+        mi.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        mi.setIcon(android.R.drawable.ic_menu_share);
 
         return true;
     }
@@ -150,21 +154,43 @@ public class ImageActivity extends Activity implements IImageCallback {
                         @Override
                         public void onClick(DialogInterface dialog, int pos) {
                             if (pos == 0) {
+                                mDeviceCurrentPosition = 0;
                                 stopShow();
-                                return;
+                                disconnect();
+                            } else if (pos != mDeviceCurrentPosition) {
+                                if (mDeviceCurrentPosition != 0) {
+                                    stopShow();
+                                    disconnect();
+                                }
+                                mDeviceCurrentPosition = pos;
+                                String deviceId = finalDeviceList.get(pos).id;
+                                connect(deviceId, CONNECT_TIME_OUT);
                             }
-                            String deviceId = finalDeviceList.get(pos).id;
-                            MilinkClientManager mMilinkClientManager = MilinkClient.mMilinkClient
-                                    .getManagerInstance();
-                            ReturnCode retcode = mMilinkClientManager.connect(deviceId,
-                                    Integer.valueOf(TIMEOUT));
-                            Log.d(TAG, "connect ret code: " + retcode);
                         }
 
                     })
                     .create().show();
 
             return true;
+        } else if (item.getTitle().equals("slide")) {
+            Log.d(TAG, "slide");
+            ReturnCode ret = mMilinkClientManager.startSlideshow(SLIDE_DURATION, SlideMode.Recyle);
+            Log.d(TAG, "start slide show ret code: " + ret);
+
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.slideDialogName)
+                    .setCancelable(false)
+                    .setPositiveButton(R.string.slideOK,
+                            new DialogInterface.OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    ReturnCode ret = mMilinkClientManager.stopSlideshow();
+                                    Log.d(TAG, "stop slide show ret code: " + ret);
+                                    mOptionsMenu.getItem(0).setVisible(false);
+                                }
+                            }).create().show();
+
         }
         return false;
     }
@@ -178,16 +204,17 @@ public class ImageActivity extends Activity implements IImageCallback {
     private void setImageInfo() {
         String path = imagePathList.get(mCurrentPosition);
         String title = imageTitleList.get(mCurrentPosition);
-        DisplayMetrics dm = getResources().getDisplayMetrics();
-        int width = dm.widthPixels;
-        int height = dm.heightPixels;
-        
+        // DisplayMetrics dm = getResources().getDisplayMetrics();
+        // int width = dm.widthPixels;
+        // int height = dm.heightPixels;
+
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(path, options);
-        
-        double scale = Math.max(options.outWidth / width, options.outHeight / height);
-//        options.inSampleSize = scale > 1 ? (int) scale + 1 : 1;
+
+        // double scale = Math.max(options.outWidth / width, options.outHeight /
+        // height);
+        // options.inSampleSize = scale > 1 ? (int) scale + 1 : 1;
         options.inSampleSize = 4;
         options.inJustDecodeBounds = false;
         options.inPreferredConfig = Bitmap.Config.RGB_565;
@@ -195,8 +222,18 @@ public class ImageActivity extends Activity implements IImageCallback {
         options.inInputShareable = true;
         Bitmap bm = BitmapFactory.decodeFile(path, options);
         mImageView.setImageBitmap(bm);
-        
+
         getActionBar().setTitle(title);
+    }
+
+    public void connect(String deviceId, int timeout) {
+        ReturnCode retcode = mMilinkClientManager.connect(deviceId, timeout);
+        Log.d(TAG, "connect ret code: " + retcode);
+    }
+
+    public void disconnect() {
+        ReturnCode retcode = mMilinkClientManager.disconnect();
+        Log.d(TAG, "disconnect ret code: " + retcode);
     }
 
     public void initShowPhoto() {
@@ -205,21 +242,14 @@ public class ImageActivity extends Activity implements IImageCallback {
     }
 
     public void showPhoto() {
-        if (connected) {
-            String path = imagePathList.get(mCurrentPosition);
-            ReturnCode retcode = mMilinkClientManager.show(path);
-            Log.d(TAG, "show photo ret code: " + retcode);
-        }
+        String path = imagePathList.get(mCurrentPosition);
+        ReturnCode retcode = mMilinkClientManager.show(path);
+        Log.d(TAG, "show photo ret code: " + retcode);
     }
 
     public void stopShow() {
-        if (connected) {
-            ReturnCode retcode = mMilinkClientManager.stopShow();
-            ReturnCode retcode2 = mMilinkClientManager.disconnect();
-            connected = false;
-            Log.d(TAG, "stop show ret code: " + retcode);
-            Log.d(TAG, "disconnect ret code: " + retcode2);
-        }
+        ReturnCode retcode = mMilinkClientManager.stopShow();
+        Log.d(TAG, "stop show ret code: " + retcode);
     }
 
     @Override
@@ -252,21 +282,20 @@ public class ImageActivity extends Activity implements IImageCallback {
 
     @Override
     public void onConnected() {
-        connected = true;
         Toast.makeText(this, R.string.connected, Toast.LENGTH_SHORT).show();
         initShowPhoto();
         showPhoto();
+        mOptionsMenu.getItem(0).setVisible(true);
     }
 
     @Override
     public void onConnectedFailed(ErrorCode errorCode) {
-        connected = false;
         Toast.makeText(this, R.string.connectFailed, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onDisconnected() {
-        connected = false;
+        mOptionsMenu.getItem(0).setVisible(false);
     }
 
     @Override

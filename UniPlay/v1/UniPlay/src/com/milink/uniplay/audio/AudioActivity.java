@@ -262,8 +262,7 @@ public class AudioActivity extends Activity implements IAudioCallback {
                 }
                 int pos = mMilinkClientManager.getPlaybackProgress();
                 pos = pos <= 0 ? 0 : pos;
-                // Log.d(TAG, String.format("timer len = %d, pos = %d",
-                // mVideoLenght, pos));
+                Log.d(TAG, String.format("timer len = %d, pos = %d", mAudioLength, pos));
 
                 String text = convertTime(pos) + "/" + convertTime(mAudioLength);
                 Message msg = Message.obtain();
@@ -307,11 +306,9 @@ public class AudioActivity extends Activity implements IAudioCallback {
     private void playPause() {
         if (mCurrentState == Automata.PLAYING) {
             switchState(Automata.PAUSED);
-            playPauseButton.setText(R.string.playVideo);
             mMilinkClientManager.setPlaybackRate(0);
         } else if (mCurrentState == Automata.PAUSED) {
             switchState(Automata.PLAYING);
-            playPauseButton.setText(R.string.pauseVideo);
             mMilinkClientManager.setPlaybackRate(1);
         } else {
             switchState(Automata.PLAYING);
@@ -410,6 +407,7 @@ public class AudioActivity extends Activity implements IAudioCallback {
                     return false;
                 }
                 setVisible(View.VISIBLE);
+                playPauseButton.setText(R.string.playVideo);
                 mCurrentState = state;
                 return true;
             case PLAYING:
@@ -418,6 +416,7 @@ public class AudioActivity extends Activity implements IAudioCallback {
                     return false;
                 }
                 setVisible(View.VISIBLE);
+                playPauseButton.setText(R.string.pauseVideo);
                 mCurrentState = state;
                 return true;
             case STOPPED:
@@ -426,6 +425,7 @@ public class AudioActivity extends Activity implements IAudioCallback {
                     return false;
                 }
                 setVisible(View.INVISIBLE);
+                playPauseButton.setText(R.string.playVideo);
                 mCurrentState = state;
                 return true;
             default:
