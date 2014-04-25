@@ -1,3 +1,3 @@
 UniPlay
 =========
-Modify sdk readme.
+MilinkSDK demo.
