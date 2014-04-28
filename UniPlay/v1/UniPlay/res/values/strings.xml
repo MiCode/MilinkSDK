@@ -25,7 +25,6 @@
     <string name="prevAudio">上一曲</string>
     <string name="nextAudio">下一曲</string>
     <string name="localDeviceName">我的手机</string>
-    <string name="slideDialogName">按下确定停止幻灯片播放模式</string>
-    <string name="slideOK">确定</string>
+    <string name="slideDialogName">确认停止幻灯片播放模式</string>
 
 </resources>

@@ -180,9 +180,8 @@ public class ImageActivity extends Activity implements IImageCallback {
             new AlertDialog.Builder(this)
                     .setTitle(R.string.slideDialogName)
                     .setCancelable(false)
-                    .setPositiveButton(R.string.slideOK,
+                    .setPositiveButton(android.R.string.ok,
                             new DialogInterface.OnClickListener() {
-
                                 @Override
                                 public void onClick(DialogInterface arg0, int arg1) {
                                     ReturnCode ret = mMilinkClientManager.stopSlideshow();
