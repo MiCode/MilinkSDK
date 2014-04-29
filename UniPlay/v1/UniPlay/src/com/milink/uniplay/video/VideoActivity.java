@@ -373,13 +373,12 @@ public class VideoActivity extends Activity implements IVideoCallback {
     }
 
     public void stopVideo(View view) {
-        if (switchState(Automata.STOPPED)) {
-            Log.d(TAG, "new state: " + mCurrentState);
-            ReturnCode retcode = mMilinkClientManager.stopPlay();
-            Log.d(TAG, "stop ret code: " + retcode);
+        switchState(Automata.STOPPED);
+        Log.d(TAG, "new state: " + mCurrentState);
+        ReturnCode retcode = mMilinkClientManager.stopPlay();
+        Log.d(TAG, "stop ret code: " + retcode);
 
-            stopTimerTask();
-        }
+        stopTimerTask();
     }
 
     public void volumeInc(View view) {
@@ -411,12 +410,14 @@ public class VideoActivity extends Activity implements IVideoCallback {
             String title = (String) map.get("TITLE");
             String url = (String) map.get("DATA");
 
+            stopTimerTask();
             switchState(Automata.PLAYING);
             Log.d(TAG, "new state: " + mCurrentState);
             setVideoInfo(mVideoList, mCurrentPosition);
             ReturnCode retcode = mMilinkClientManager
                     .startPlay(url, title, 0, 0.0, MediaType.Video);
             Log.d(TAG, "startPlay ret code: " + retcode);
+            startTimerTask();
         }
     }
 
@@ -431,12 +432,14 @@ public class VideoActivity extends Activity implements IVideoCallback {
             String title = (String) map.get("TITLE");
             String url = (String) map.get("DATA");
 
+            stopTimerTask();
             switchState(Automata.PLAYING);
             Log.d(TAG, "new state: " + mCurrentState);
             setVideoInfo(mVideoList, mCurrentPosition);
             ReturnCode retcode = mMilinkClientManager
                     .startPlay(url, title, 0, 0.0, MediaType.Video);
             Log.d(TAG, "startPlay ret code: " + retcode);
+            startTimerTask();
         }
     }
 
@@ -477,9 +480,9 @@ public class VideoActivity extends Activity implements IVideoCallback {
     @Override
     public void onStopped() {
         stopTimerTask();
-         switchState(Automata.STOPPED);
-         Log.d(TAG, "new state: " + mCurrentState);
-         Toast.makeText(this, R.string.stopped, Toast.LENGTH_SHORT).show();
+        switchState(Automata.STOPPED);
+        Log.d(TAG, "new state: " + mCurrentState);
+        Toast.makeText(this, R.string.stopped, Toast.LENGTH_SHORT).show();
     }
 
     @Override

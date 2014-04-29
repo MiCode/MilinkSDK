@@ -72,8 +72,8 @@ public class ImageTabContentFragment extends Fragment {
         options.inJustDecodeBounds = false;
         options.inPurgeable = true;
         options.inInputShareable = true;
-        options.inSampleSize = 4;
-        int picNum = 20;
+        options.inSampleSize = 1;
+        int picNum = 24;
 
         while (mCursor.moveToNext() && picNum > 0) {
             ImageInfo info = new ImageInfo();
@@ -91,6 +91,10 @@ public class ImageTabContentFragment extends Fragment {
             }
             Bitmap bm = MediaStore.Images.Thumbnails.getThumbnail(mContext.getContentResolver(),
                     info.id, Images.Thumbnails.MINI_KIND, options);
+            int width = bm.getWidth();
+            int height = bm.getHeight();
+            int len = width > height ? height : width;
+            bm = Bitmap.createBitmap(bm, 0, 0, len, len);
 
             map.put("_ID", info.id);
             map.put("TITLE", info.title);
