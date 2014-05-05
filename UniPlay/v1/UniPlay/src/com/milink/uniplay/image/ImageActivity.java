@@ -81,6 +81,8 @@ public class ImageActivity extends Activity implements IImageCallback {
         imageTitleList = mBundle.getStringArrayList("imageTitleList");
         imagePathList = mBundle.getStringArrayList("imagePathList");
         // mImageList = (ArrayList<ImageInfo>) mBundle.get("imageInfoList");
+        getActionBar().setTitle(R.string.localDeviceName);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         mCurrentPosition = (Integer) mBundle.get("position");
         mImageView = (ImageView) findViewById(R.id.img);
         mImageView.setOnTouchListener(new OnTouchListener() {
@@ -114,12 +116,12 @@ public class ImageActivity extends Activity implements IImageCallback {
     public boolean onCreateOptionsMenu(Menu menu) {
         mOptionsMenu = menu;
 
-        MenuItem mi = mOptionsMenu.add("slide");
+        MenuItem mi = mOptionsMenu.add(R.string.startSlide);
         mi.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         mi.setIcon(android.R.drawable.ic_menu_slideshow);
         mi.setVisible(false);
 
-        mi = mOptionsMenu.add("push");
+        mi = mOptionsMenu.add(R.string.push);
         mi.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         mi.setIcon(android.R.drawable.ic_menu_share);
 
@@ -128,9 +130,9 @@ public class ImageActivity extends Activity implements IImageCallback {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getTitle().equals("push")) {
-            Log.d(TAG, "push");
-
+        if (item.getItemId() == android.R.id.home) {
+            this.finish();
+        } else if (item.getTitle().equals(getString(R.string.push))) {
             final ArrayList<Device> finalDeviceList = new ArrayList<Device>();
             synchronized (MilinkClient.mDeviceList) {
                 finalDeviceList.add(MilinkClient.mDeviceList.get(0));
@@ -157,6 +159,8 @@ public class ImageActivity extends Activity implements IImageCallback {
                                 mDeviceCurrentPosition = 0;
                                 stopShow();
                                 disconnect();
+
+                                getActionBar().setTitle(R.string.localDeviceName);
                             } else if (pos != mDeviceCurrentPosition) {
                                 if (mDeviceCurrentPosition != 0) {
                                     stopShow();
@@ -164,16 +168,18 @@ public class ImageActivity extends Activity implements IImageCallback {
                                 }
                                 mDeviceCurrentPosition = pos;
                                 String deviceId = finalDeviceList.get(pos).id;
+                                String deviceName = finalDeviceList.get(pos).name;
+
+                                getActionBar().setTitle(deviceName);
                                 connect(deviceId, CONNECT_TIME_OUT);
+                            } else {
+                                showPhoto();
                             }
                         }
 
                     })
                     .create().show();
-
-            return true;
-        } else if (item.getTitle().equals("slide")) {
-            Log.d(TAG, "slide");
+        } else if (item.getTitle().equals(getString(R.string.startSlide))) {
             ReturnCode ret = mMilinkClientManager.startSlideshow(SLIDE_DURATION, SlideMode.Recyle);
             Log.d(TAG, "start slide show ret code: " + ret);
 
@@ -184,14 +190,11 @@ public class ImageActivity extends Activity implements IImageCallback {
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface arg0, int arg1) {
-                                    ReturnCode ret = mMilinkClientManager.stopSlideshow();
-                                    Log.d(TAG, "stop slide show ret code: " + ret);
-                                    mOptionsMenu.getItem(0).setVisible(false);
+                                    showPhoto();
                                 }
                             }).create().show();
-
         }
-        return false;
+        return true;
     }
 
     @Override
@@ -221,8 +224,6 @@ public class ImageActivity extends Activity implements IImageCallback {
         options.inInputShareable = true;
         Bitmap bm = BitmapFactory.decodeFile(path, options);
         mImageView.setImageBitmap(bm);
-
-        getActionBar().setTitle(title);
     }
 
     public void connect(String deviceId, int timeout) {

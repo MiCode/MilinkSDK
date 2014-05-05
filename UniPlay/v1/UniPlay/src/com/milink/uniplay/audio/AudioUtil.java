@@ -1,3 +1,4 @@
+
 package com.milink.uniplay.audio;
 
 import java.text.DateFormat;
@@ -16,7 +17,7 @@ import android.provider.MediaStore.MediaColumns;
 
 public class AudioUtil {
     public static ArrayList<AudioData> audioList = null;
-    public static int musicCount = 0 ;
+    public static int musicCount = 0;
 
     public static ArrayList<AudioData> getAudioData(Context context) {
         audioList = new ArrayList<AudioData>();
@@ -68,7 +69,7 @@ public class AudioUtil {
         Uri uri = MediaStore.Audio.Media.getContentUriForPath(audioList.get(position).getUri());
         cr.delete(uri, BaseColumns._ID + "=" + audioList.get(position).getId(), null);
     }
-    
+
     public static String formatSize(long size) {
         long l = size;
         String s = "GB";

@@ -35,8 +35,11 @@ import com.milink.uniplay.R;
 public class AudioActivity extends Activity implements IAudioCallback {
     private String TAG = AudioActivity.class.getSimpleName();
 
-    private TextView titleTextView;
-    private TextView detailTextView;
+    private TextView mTextViewTitle;
+    private TextView mTextViewAlbum;
+    private TextView mTextViewArtist;
+    private TextView mTextViewData;
+    private TextView mTextView_MIME_TYPE;
     private Button playPauseButton;
     private Button prevButton;
     private Button nextButton;
@@ -52,7 +55,6 @@ public class AudioActivity extends Activity implements IAudioCallback {
 
     private Timer mTimer = null;
     private TimerTask mTimerTask = null;
-    private int mAudioLength = 0;
     private int AUDIO_SEP_TIME = 1000;
     private int AUDIO_DURATION = 1;
     private int CONNECT_TIME_OUT = 5000;
@@ -70,8 +72,11 @@ public class AudioActivity extends Activity implements IAudioCallback {
     };
 
     void findViews() {
-        titleTextView = (TextView) findViewById(R.id.title);
-        detailTextView = (TextView) findViewById(R.id.discription);
+        mTextViewTitle = (TextView) findViewById(R.id.title);
+        mTextViewAlbum = (TextView) findViewById(R.id.album);
+        mTextViewArtist = (TextView) findViewById(R.id.artist);
+        mTextViewData = (TextView) findViewById(R.id.data);
+        mTextView_MIME_TYPE = (TextView) findViewById(R.id.MIME_TYPE);
         playPauseButton = (Button) findViewById(R.id.btnPause);
         prevButton = (Button) findViewById(R.id.btnPrev);
         nextButton = (Button) findViewById(R.id.btnNext);
@@ -99,23 +104,19 @@ public class AudioActivity extends Activity implements IAudioCallback {
         findViews();
         setupActions();
         setVisible(View.INVISIBLE);
-        if (mMilinkClientManager == null) {
-            mMilinkClientManager = MilinkClient.mMilinkClient.getManagerInstance();
-        }
+        mMilinkClientManager = MilinkClient.mMilinkClient.getManagerInstance();
         MilinkClient.mMilinkClient.setCallback(this);
 
         position = this.getIntent().getIntExtra("Position", 0);
-        if (AudioUtil.audioList == null) {
-            titleTextView.setText("没有歌曲存在");
-        } else {
-            if (position == -1) {
-                position = 0;
-            }
-            mAudioData = AudioUtil.audioList.get(position);
-            titleTextView.setText(mAudioData.getTitle());
-            detailTextView.setText(mAudioData.getUri());
-        }
-        getActionBar().setTitle(mAudioData.getTitle());
+        mAudioData = AudioUtil.audioList.get(position);
+        mTextViewTitle.setText("title: " + mAudioData.getTitle());
+        mTextViewAlbum.setText("album: " + mAudioData.getAlbum());
+        mTextViewArtist.setText("artist: " + mAudioData.getSinger());
+        mTextViewData.setText("data: " + mAudioData.getUri());
+        mTextView_MIME_TYPE.setText("MIME_TYPE: mp3");
+
+        getActionBar().setTitle(R.string.localDeviceName);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 
         switchState(Automata.START);
     }
@@ -129,7 +130,7 @@ public class AudioActivity extends Activity implements IAudioCallback {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuItem mMenuItem = menu.add("push");
+        MenuItem mMenuItem = menu.add(R.string.push);
         mMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         mMenuItem.setIcon(android.R.drawable.ic_menu_share);
 
@@ -137,7 +138,9 @@ public class AudioActivity extends Activity implements IAudioCallback {
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getTitle().equals("push")) {
+        if (item.getItemId() == android.R.id.home) {
+            this.finish();
+        } else if (item.getTitle().equals(getString(R.string.push))) {
             final ArrayList<Device> finalDeviceList = new ArrayList<Device>();
             synchronized (MilinkClient.mDeviceList) {
                 finalDeviceList.add(MilinkClient.mDeviceList.get(0));
@@ -163,9 +166,14 @@ public class AudioActivity extends Activity implements IAudioCallback {
                                 mDeviceCurrentPosition = 0;
                                 stopPlay();
                                 disconnect();
+
+                                getActionBar().setTitle(R.string.localDeviceName);
                             } else if (pos == mDeviceCurrentPosition) {
                                 if (mCurrentState == Automata.START) {
                                     String deviceId = finalDeviceList.get(pos).id;
+                                    String deviceName = finalDeviceList.get(pos).name;
+
+                                    getActionBar().setTitle(deviceName);
                                     connect(deviceId, CONNECT_TIME_OUT);
                                 } else if (mCurrentState == Automata.STOPPED) {
                                     switchState(Automata.DEVICE_READY);
@@ -173,18 +181,21 @@ public class AudioActivity extends Activity implements IAudioCallback {
                                 }
                             } else {
                                 if (mDeviceCurrentPosition != 0) {
+                                    switchState(Automata.START);
                                     stopPlay();
                                     disconnect();
                                 }
                                 mDeviceCurrentPosition = pos;
                                 String deviceId = finalDeviceList.get(pos).id;
+                                String deviceName = finalDeviceList.get(pos).name;
+
+                                getActionBar().setTitle(deviceName);
                                 connect(deviceId, CONNECT_TIME_OUT);
                             }
                         }
                     })
                     .create().show();
         }
-
         return true;
     }
 
@@ -251,40 +262,41 @@ public class AudioActivity extends Activity implements IAudioCallback {
     }
 
     private void startTimerTask() {
-        mTimer = new Timer();
-        mTimerTask = new TimerTask() {
+        if (mTimer == null) {
+            mTimer = new Timer();
+            mTimerTask = new TimerTask() {
 
-            @Override
-            public void run() {
-                if (mAudioLength <= 0) {
-                    mAudioLength = mMilinkClientManager.getPlaybackDuration();
-                    mAudioLength = mAudioLength <= 0 ? 0 : mAudioLength;
+                @Override
+                public void run() {
+                    int len = mMilinkClientManager.getPlaybackDuration();
+                    int pos = mMilinkClientManager.getPlaybackProgress();
+                    len = len <= 0 ? 0 : len;
+                    pos = pos <= 0 ? 0 : pos;
+                    Log.d(TAG, String.format("timer len = %d, pos = %d", len, pos));
+
+                    String text = convertTime(pos) + "/" + convertTime(len);
+                    Message msg = Message.obtain();
+                    msg.obj = text;
+                    msg.what = AUDIO_DURATION;
+                    handler.sendMessage(msg);
                 }
-                int pos = mMilinkClientManager.getPlaybackProgress();
-                pos = pos <= 0 ? 0 : pos;
-                Log.d(TAG, String.format("timer len = %d, pos = %d", mAudioLength, pos));
 
-                String text = convertTime(pos) + "/" + convertTime(mAudioLength);
-                Message msg = Message.obtain();
-                msg.obj = text;
-                msg.what = AUDIO_DURATION;
-                handler.sendMessage(msg);
-            }
+                private String convertTime(int time) {
+                    DateFormat format = new SimpleDateFormat("mm:ss");
+                    format.setTimeZone(TimeZone.getTimeZone("GMT+00:00"));
+                    return format.format(time);
+                }
+            };
 
-            private String convertTime(int time) {
-                DateFormat format = new SimpleDateFormat("HH:mm:ss");
-                format.setTimeZone(TimeZone.getTimeZone("GMT+00:00"));
-                return format.format(time);
-            }
-        };
-
-        mTimer.schedule(mTimerTask, AUDIO_SEP_TIME, AUDIO_SEP_TIME);
+            mTimer.schedule(mTimerTask, AUDIO_SEP_TIME, AUDIO_SEP_TIME);
+        }
     }
 
     private void stopTimerTask() {
         if (mTimer != null) {
             mTimer.cancel();
             mTimer = null;
+            mTimerTask = null;
         }
     }
 
@@ -322,8 +334,8 @@ public class AudioActivity extends Activity implements IAudioCallback {
         ReturnCode ret = mMilinkClientManager.stopPlay();
         Log.d(TAG, "stop play ret code: " + ret);
 
-        stopTimerTask();
         setVisible(View.INVISIBLE);
+        stopTimerTask();
     }
 
     private void play() {
@@ -349,9 +361,15 @@ public class AudioActivity extends Activity implements IAudioCallback {
             } else {
                 return;
             }
+
+            switchState(Automata.PLAYING);
             mAudioData = AudioUtil.audioList.get(position);
-            titleTextView.setText(mAudioData.getTitle());
-            detailTextView.setText(mAudioData.getUri());
+            mTextViewTitle.setText("title: " + mAudioData.getTitle());
+            mTextViewAlbum.setText("album: " + mAudioData.getAlbum());
+            mTextViewArtist.setText("artist: " + mAudioData.getSinger());
+            mTextViewData.setText("data: " + mAudioData.getUri());
+            mTextView_MIME_TYPE.setText("MIME_TYPE: mp3");
+
             play();
         }
     }
@@ -369,9 +387,14 @@ public class AudioActivity extends Activity implements IAudioCallback {
                 return;
             }
 
+            switchState(Automata.PLAYING);
             mAudioData = AudioUtil.audioList.get(position);
-            titleTextView.setText(mAudioData.getTitle());
-            detailTextView.setText(mAudioData.getUri());
+            mTextViewTitle.setText("title: " + mAudioData.getTitle());
+            mTextViewAlbum.setText("album: " + mAudioData.getAlbum());
+            mTextViewArtist.setText("artist: " + mAudioData.getSinger());
+            mTextViewData.setText("data: " + mAudioData.getUri());
+            mTextView_MIME_TYPE.setText("MIME_TYPE: mp3");
+
             play();
         }
     }
@@ -459,6 +482,7 @@ public class AudioActivity extends Activity implements IAudioCallback {
     @Override
     public void onPlaying() {
         switchState(Automata.PLAYING);
+        startTimerTask();
         Log.d(TAG, "new state: " + mCurrentState);
         setVolumn();
         Toast.makeText(this, R.string.playing, Toast.LENGTH_SHORT).show();

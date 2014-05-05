@@ -52,7 +52,8 @@ public class VideoActivity extends Activity implements IVideoCallback {
 
     private Timer mTimer = null;
     private TimerTask mTimerTask = null;
-    private int mVideoLenght = 0;
+
+    public String DEVICEID;
 
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
@@ -76,6 +77,8 @@ public class VideoActivity extends Activity implements IVideoCallback {
         mCurrentPosition = (Integer) mBundle.get("position");
 
         setVideoInfo(mVideoList, mCurrentPosition);
+        getActionBar().setTitle(R.string.localDeviceName);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         switchState(Automata.START);
     }
 
@@ -88,7 +91,7 @@ public class VideoActivity extends Activity implements IVideoCallback {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuItem mMenuItem = menu.add("push");
+        MenuItem mMenuItem = menu.add(R.string.push);
         mMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         mMenuItem.setIcon(android.R.drawable.ic_menu_share);
 
@@ -97,9 +100,9 @@ public class VideoActivity extends Activity implements IVideoCallback {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getTitle().equals("push")) {
-            Log.d(TAG, "push");
-
+        if (item.getItemId() == android.R.id.home) {
+            this.finish();
+        } else if (item.getTitle().equals(getString(R.string.push))) {
             final ArrayList<Device> finalDeviceList = new ArrayList<Device>();
             synchronized (MilinkClient.mDeviceList) {
                 finalDeviceList.add(MilinkClient.mDeviceList.get(0));
@@ -126,9 +129,14 @@ public class VideoActivity extends Activity implements IVideoCallback {
                                 mDeviceCurrentPosition = 0;
                                 stopVideo(getCurrentFocus());
                                 disconnect();
+
+                                getActionBar().setTitle(R.string.localDeviceName);
                             } else if (pos == mDeviceCurrentPosition) {
                                 if (mCurrentState == Automata.START) {
                                     String deviceId = finalDeviceList.get(pos).id;
+                                    String deviceName = finalDeviceList.get(pos).name;
+
+                                    getActionBar().setTitle(deviceName);
                                     connect(deviceId, CONNECT_TIME_OUT);
                                 } else if (mCurrentState == Automata.STOPPED) {
                                     switchState(Automata.DEVICE_READY);
@@ -136,19 +144,23 @@ public class VideoActivity extends Activity implements IVideoCallback {
                                 }
                             } else {
                                 if (mDeviceCurrentPosition != 0) {
+                                    switchState(Automata.START);
                                     stopVideo(getCurrentFocus());
                                     disconnect();
                                 }
                                 mDeviceCurrentPosition = pos;
                                 String deviceId = finalDeviceList.get(pos).id;
+                                String deviceName = finalDeviceList.get(pos).name;
+
+                                getActionBar().setTitle(deviceName);
                                 connect(deviceId, CONNECT_TIME_OUT);
+                                DEVICEID = deviceId;
                             }
                         }
 
                     })
                     .create().show();
         }
-
         return true;
     }
 
@@ -169,7 +181,6 @@ public class VideoActivity extends Activity implements IVideoCallback {
         tv5.setText("Data: " + (String) map.get("DATA"));
         tv6.setText("MIME_TYPE: " + (String) map.get("MIME_TYPE"));
 
-        getActionBar().setTitle((String) map.get("TITLE"));
     }
 
     private void setVideoPlaying(boolean playing) {
@@ -222,41 +233,42 @@ public class VideoActivity extends Activity implements IVideoCallback {
     }
 
     private void startTimerTask() {
-        mTimer = new Timer();
-        mTimerTask = new TimerTask() {
+        if (mTimer == null) {
+            mTimer = new Timer();
+            mTimerTask = new TimerTask() {
 
-            @Override
-            public void run() {
-                if (mVideoLenght <= 0) {
-                    mVideoLenght = mMilinkClientManager.getPlaybackDuration();
-                    mVideoLenght = mVideoLenght <= 0 ? 0 : mVideoLenght;
+                @Override
+                public void run() {
+                    int len = mMilinkClientManager.getPlaybackDuration();
+                    int pos = mMilinkClientManager.getPlaybackProgress();
+                    len = len <= 0 ? 0 : len;
+                    pos = pos <= 0 ? 0 : pos;
+                    Log.d(TAG, String.format("timer len = %d, pos = %d",
+                            len, pos));
+
+                    String text = convertTime(pos) + "/" + convertTime(len);
+                    Message msg = Message.obtain();
+                    msg.obj = text;
+                    msg.what = VIDEO_DURATION;
+                    handler.sendMessage(msg);
                 }
-                int pos = mMilinkClientManager.getPlaybackProgress();
-                pos = pos <= 0 ? 0 : pos;
-                // Log.d(TAG, String.format("timer len = %d, pos = %d",
-                // mVideoLenght, pos));
 
-                String text = convertTime(pos) + "/" + convertTime(mVideoLenght);
-                Message msg = Message.obtain();
-                msg.obj = text;
-                msg.what = VIDEO_DURATION;
-                handler.sendMessage(msg);
-            }
+                private String convertTime(int time) {
+                    DateFormat format = new SimpleDateFormat("HH:mm:ss");
+                    format.setTimeZone(TimeZone.getTimeZone("GMT+00:00"));
+                    return format.format(time);
+                }
+            };
 
-            private String convertTime(int time) {
-                DateFormat format = new SimpleDateFormat("HH:mm:ss");
-                format.setTimeZone(TimeZone.getTimeZone("GMT+00:00"));
-                return format.format(time);
-            }
-        };
-
-        mTimer.schedule(mTimerTask, VIDEO_SEP_TIME, VIDEO_SEP_TIME);
+            mTimer.schedule(mTimerTask, VIDEO_SEP_TIME, VIDEO_SEP_TIME);
+        }
     }
 
     private void stopTimerTask() {
         if (mTimer != null) {
             mTimer.cancel();
             mTimer = null;
+            mTimerTask = null;
         }
     }
 
@@ -268,7 +280,7 @@ public class VideoActivity extends Activity implements IVideoCallback {
                 setVisible(false);
                 setVideoPlaying(false);
                 setVideoStopped(true);
-                mCurrentState = state;
+                mCurrentState = Automata.START;
                 return true;
             case CONNECTING:
                 if (mCurrentState != Automata.START) {
@@ -340,6 +352,7 @@ public class VideoActivity extends Activity implements IVideoCallback {
 
     public void playVideo(View view) {
         if (switchState(Automata.PLAYING)) {
+            stopTimerTask();
             Log.d(TAG, "new state: " + mCurrentState);
             Map<String, Object> map = mVideoList.get(mCurrentPosition);
             String title = (String) map.get("TITLE");
@@ -348,7 +361,6 @@ public class VideoActivity extends Activity implements IVideoCallback {
             ReturnCode retcode = mMilinkClientManager
                     .startPlay(url, title, 0, 0.0, MediaType.Video);
             Log.d(TAG, "startPlay ret code: " + retcode);
-
             startTimerTask();
         }
 
@@ -377,8 +389,8 @@ public class VideoActivity extends Activity implements IVideoCallback {
         Log.d(TAG, "new state: " + mCurrentState);
         ReturnCode retcode = mMilinkClientManager.stopPlay();
         Log.d(TAG, "stop ret code: " + retcode);
-
         stopTimerTask();
+
     }
 
     public void volumeInc(View view) {
@@ -410,14 +422,12 @@ public class VideoActivity extends Activity implements IVideoCallback {
             String title = (String) map.get("TITLE");
             String url = (String) map.get("DATA");
 
-            stopTimerTask();
             switchState(Automata.PLAYING);
             Log.d(TAG, "new state: " + mCurrentState);
             setVideoInfo(mVideoList, mCurrentPosition);
             ReturnCode retcode = mMilinkClientManager
                     .startPlay(url, title, 0, 0.0, MediaType.Video);
             Log.d(TAG, "startPlay ret code: " + retcode);
-            startTimerTask();
         }
     }
 
@@ -432,14 +442,12 @@ public class VideoActivity extends Activity implements IVideoCallback {
             String title = (String) map.get("TITLE");
             String url = (String) map.get("DATA");
 
-            stopTimerTask();
             switchState(Automata.PLAYING);
             Log.d(TAG, "new state: " + mCurrentState);
             setVideoInfo(mVideoList, mCurrentPosition);
             ReturnCode retcode = mMilinkClientManager
                     .startPlay(url, title, 0, 0.0, MediaType.Video);
             Log.d(TAG, "startPlay ret code: " + retcode);
-            startTimerTask();
         }
     }
 
@@ -472,6 +480,7 @@ public class VideoActivity extends Activity implements IVideoCallback {
     @Override
     public void onPlaying() {
         switchState(Automata.PLAYING);
+        startTimerTask();
         Log.d(TAG, "new state: " + mCurrentState);
         setVolumn();
         Toast.makeText(this, R.string.playing, Toast.LENGTH_SHORT).show();
@@ -479,8 +488,8 @@ public class VideoActivity extends Activity implements IVideoCallback {
 
     @Override
     public void onStopped() {
-        stopTimerTask();
         switchState(Automata.STOPPED);
+        stopTimerTask();
         Log.d(TAG, "new state: " + mCurrentState);
         Toast.makeText(this, R.string.stopped, Toast.LENGTH_SHORT).show();
     }

@@ -16,10 +16,11 @@ import java.util.ArrayList;
 
 public class MilinkClient implements MilinkClientManagerDelegate, MilinkClientManagerDataSource {
     private String TAG = this.getClass().getSimpleName();
-    private Context mContext;
+    private Context mContext = null;
     private ICallback mICallback = null;
 
     private static MilinkClientManager mMgr = null;
+
     public static MilinkClient mMilinkClient = null;
     public final static ArrayList<Device> mDeviceList = new ArrayList<Device>();
 
@@ -81,7 +82,9 @@ public class MilinkClient implements MilinkClientManagerDelegate, MilinkClientMa
         Log.d(TAG, String.format("onDeviceFound: %s -> %s -> %s", deviceId, name, type));
         synchronized (mDeviceList) {
             Device device = new Device(deviceId, name, type);
-            MilinkClient.mDeviceList.add(device);
+            if (!mDeviceList.contains(device)) {
+                mDeviceList.add(device);
+            }
         }
     }
 
@@ -89,9 +92,9 @@ public class MilinkClient implements MilinkClientManagerDelegate, MilinkClientMa
     public void onDeviceLost(String deviceId) {
         Log.d(TAG, String.format("onDeviceLost: %s", deviceId));
         synchronized (mDeviceList) {
-            for (Device device : MilinkClient.mDeviceList) {
+            for (Device device : mDeviceList) {
                 if (device.id.equals(deviceId)) {
-                    MilinkClient.mDeviceList.remove(device);
+                    mDeviceList.remove(device);
                     break;
                 }
             }

@@ -26,5 +26,7 @@
     <string name="nextAudio">下一曲</string>
     <string name="localDeviceName">我的手机</string>
     <string name="slideDialogName">确认停止幻灯片播放模式</string>
+    <string name="push">推送</string>
+    <string name="startSlide">开始播放幻灯片</string>
 
 </resources>
