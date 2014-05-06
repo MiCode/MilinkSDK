@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +71,7 @@ public class ImageTabContentFragment extends Fragment {
         options.inPurgeable = true;
         options.inInputShareable = true;
         options.inSampleSize = 1;
-        int picNum = 24;
+        int picNum = 24; // only show 24 pictures.
 
         while (mCursor.moveToNext() && picNum > 0) {
             ImageInfo info = new ImageInfo();
@@ -104,8 +105,9 @@ public class ImageTabContentFragment extends Fragment {
             imageList.add(map);
 
             picNum--;
+            Log.d(TAG, "num: " + picNum);
         }
-        
+
         mCursor.close();
 
         GridView mGridView = (GridView) fragView.findViewById(R.id.gridview);

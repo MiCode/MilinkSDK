@@ -1,3 +1,4 @@
+
 package com.milink.uniplay.image;
 
 import android.os.Parcel;
@@ -8,10 +9,10 @@ public class ImageInfo implements Parcelable {
     public String title;
     public String data;
     public long size;
-    
+
     public ImageInfo() {
     }
-    
+
     public ImageInfo(Parcel source) {
         id = source.readInt();
         title = source.readString();
@@ -31,14 +32,14 @@ public class ImageInfo implements Parcelable {
         dest.writeString(data);
         dest.writeLong(size);
     }
-    
+
     public final static Parcelable.Creator<ImageInfo> CREATOR = new Creator<ImageInfo>() {
-        
+
         @Override
         public ImageInfo[] newArray(int size) {
             return new ImageInfo[size];
         }
-        
+
         @Override
         public ImageInfo createFromParcel(Parcel source) {
             return new ImageInfo(source);

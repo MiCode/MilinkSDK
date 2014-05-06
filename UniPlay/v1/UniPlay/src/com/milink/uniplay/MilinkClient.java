@@ -15,31 +15,35 @@ import com.milink.uniplay.image.IImageCallback;
 import java.util.ArrayList;
 
 public class MilinkClient implements MilinkClientManagerDelegate, MilinkClientManagerDataSource {
-    private String TAG = this.getClass().getSimpleName();
-    private Context mContext = null;
+    private final String TAG = this.getClass().getSimpleName();
+
     private ICallback mICallback = null;
 
+    private static MilinkClient mMilinkClient = null; // singleton
     private static MilinkClientManager mMgr = null;
+    private static ArrayList<Device> mDeviceList = null;
 
-    public static MilinkClient mMilinkClient = null;
-    public final static ArrayList<Device> mDeviceList = new ArrayList<Device>();
-
-    public MilinkClient(Context context) {
-        this.mContext = context;
+    private MilinkClient() {
     }
 
-    public final MilinkClient getClientInstance() {
+    public static MilinkClient newMilinkClient(Context context) {
+        if (mMilinkClient == null) {
+            mMilinkClient = new MilinkClient();
+            mMgr = new MilinkClientManager(context);
+            mDeviceList = new ArrayList<Device>();
+        }
         return mMilinkClient;
     }
 
-    public final MilinkClientManager getManagerInstance() {
-        if (mMgr == null) {
-            synchronized (this) {
-                if (mMgr == null) {
-                    mMgr = new MilinkClientManager(mContext);
-                }
-            }
-        }
+    public static MilinkClient getMilinkClientInstance() {
+        return mMilinkClient;
+    }
+
+    public static ArrayList<Device> getDeviceList() {
+        return mDeviceList;
+    }
+
+    public static MilinkClientManager getManagerInstance() {
         return mMgr;
     }
 

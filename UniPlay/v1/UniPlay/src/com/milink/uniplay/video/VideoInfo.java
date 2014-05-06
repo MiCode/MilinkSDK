@@ -4,7 +4,7 @@ package com.milink.uniplay.video;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class VideoInfo implements Parcelable {
+public class VideoInfo implements Parcelable { // no use
     public String id;
     public String title;
     public String album;

@@ -22,6 +22,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.milink.api.v1.MilinkClientManager;
 import com.milink.api.v1.type.DeviceType;
 import com.milink.api.v1.type.ErrorCode;
@@ -104,8 +105,8 @@ public class AudioActivity extends Activity implements IAudioCallback {
         findViews();
         setupActions();
         setVisible(View.INVISIBLE);
-        mMilinkClientManager = MilinkClient.mMilinkClient.getManagerInstance();
-        MilinkClient.mMilinkClient.setCallback(this);
+        mMilinkClientManager = MilinkClient.getManagerInstance();
+        MilinkClient.getMilinkClientInstance().setCallback(this);
 
         position = this.getIntent().getIntExtra("Position", 0);
         mAudioData = AudioUtil.audioList.get(position);
@@ -137,26 +138,29 @@ public class AudioActivity extends Activity implements IAudioCallback {
         return true;
     }
 
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             this.finish();
         } else if (item.getTitle().equals(getString(R.string.push))) {
             final ArrayList<Device> finalDeviceList = new ArrayList<Device>();
-            synchronized (MilinkClient.mDeviceList) {
-                finalDeviceList.add(MilinkClient.mDeviceList.get(0));
-                for (int i = 1; i < MilinkClient.mDeviceList.size(); ++i) {
-                    if (MilinkClient.mDeviceList.get(i).type == DeviceType.Speaker
-                            || MilinkClient.mDeviceList.get(i).type == DeviceType.TV) {
-                        finalDeviceList.add(MilinkClient.mDeviceList.get(i));
+            synchronized (MilinkClient.getDeviceList()) {
+                finalDeviceList.add(MilinkClient.getDeviceList().get(0));
+                for (int i = 1; i < MilinkClient.getDeviceList().size(); ++i) {
+                    if (MilinkClient.getDeviceList().get(i).type == DeviceType.Speaker
+                            || MilinkClient.getDeviceList().get(i).type == DeviceType.TV) {
+                        finalDeviceList.add(MilinkClient.getDeviceList().get(i));
                     }
                 }
             }
+
             final ArrayList<String> names = new ArrayList<String>();
             for (Device device : finalDeviceList) {
                 names.add(device.name);
             }
             String[] deviceNames = new String[names.size()];
             names.toArray(deviceNames);
+
             new AlertDialog.Builder(AudioActivity.this).setTitle(R.string.deviceListName).setItems(
                     deviceNames,
                     new DialogInterface.OnClickListener() {
@@ -164,10 +168,10 @@ public class AudioActivity extends Activity implements IAudioCallback {
                         public void onClick(DialogInterface dialog, int pos) {
                             if (pos == 0) {
                                 mDeviceCurrentPosition = 0;
+                                getActionBar().setTitle(R.string.localDeviceName);
                                 stopPlay();
                                 disconnect();
 
-                                getActionBar().setTitle(R.string.localDeviceName);
                             } else if (pos == mDeviceCurrentPosition) {
                                 if (mCurrentState == Automata.START) {
                                     String deviceId = finalDeviceList.get(pos).id;
@@ -175,6 +179,7 @@ public class AudioActivity extends Activity implements IAudioCallback {
 
                                     getActionBar().setTitle(deviceName);
                                     connect(deviceId, CONNECT_TIME_OUT);
+
                                 } else if (mCurrentState == Automata.STOPPED) {
                                     switchState(Automata.DEVICE_READY);
                                     play();

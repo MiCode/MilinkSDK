@@ -45,18 +45,19 @@ public class MainActivity extends FragmentActivity {
 
         vp.setAdapter(new SimplePagerAdapter(getSupportFragmentManager(), mFragmentList,
                 mTabTitleList));
+        // set the number of cached pages.
         vp.setOffscreenPageLimit(mFragmentList.size());
 
-        MilinkClient.mMilinkClient = new MilinkClient(this);
-        mMilinkClientManager = MilinkClient.mMilinkClient.getManagerInstance();
-        mMilinkClientManager.setDelegate(MilinkClient.mMilinkClient);
-        mMilinkClientManager.setDataSource(MilinkClient.mMilinkClient);
-        mMilinkClientManager.setDeviceName("zhgn miphone");
+        MilinkClient client = MilinkClient.newMilinkClient(this);
+        mMilinkClientManager = MilinkClient.getManagerInstance();
+        mMilinkClientManager.setDelegate(client);
+        mMilinkClientManager.setDataSource(client);
+        mMilinkClientManager.setDeviceName("My Phone");
         mMilinkClientManager.open();
 
         Device nullDevice = new Device("127.0.0.1", getString(R.string.localDeviceName),
                 DeviceType.Unknown);
-        MilinkClient.mDeviceList.add(nullDevice);
+        MilinkClient.getDeviceList().add(nullDevice);
 
         Log.d(TAG, "app start.");
     }
@@ -65,7 +66,7 @@ public class MainActivity extends FragmentActivity {
     protected void onDestroy() {
         super.onDestroy();
         mMilinkClientManager.close();
-        MilinkClient.mDeviceList.clear();
+        MilinkClient.getDeviceList().clear();
     }
 
     @Override

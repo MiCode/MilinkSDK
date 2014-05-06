@@ -70,19 +70,22 @@ public class ImageActivity extends Activity implements IImageCallback {
         };
     };
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.image_details);
 
-        MilinkClient.mMilinkClient.setCallback(this);
-        mMilinkClientManager = MilinkClient.mMilinkClient.getManagerInstance();
+        mMilinkClientManager = MilinkClient.getManagerInstance();
+        MilinkClient.getMilinkClientInstance().setCallback(this);
 
         Bundle mBundle = getIntent().getExtras();
         imageTitleList = mBundle.getStringArrayList("imageTitleList");
         imagePathList = mBundle.getStringArrayList("imagePathList");
         // mImageList = (ArrayList<ImageInfo>) mBundle.get("imageInfoList");
+
         getActionBar().setTitle(R.string.localDeviceName);
         getActionBar().setDisplayHomeAsUpEnabled(true);
+
         mCurrentPosition = (Integer) mBundle.get("position");
         mImageView = (ImageView) findViewById(R.id.img);
         mImageView.setOnTouchListener(new OnTouchListener() {
@@ -134,14 +137,15 @@ public class ImageActivity extends Activity implements IImageCallback {
             this.finish();
         } else if (item.getTitle().equals(getString(R.string.push))) {
             final ArrayList<Device> finalDeviceList = new ArrayList<Device>();
-            synchronized (MilinkClient.mDeviceList) {
-                finalDeviceList.add(MilinkClient.mDeviceList.get(0));
-                for (int i = 1; i < MilinkClient.mDeviceList.size(); ++i) {
-                    if (MilinkClient.mDeviceList.get(i).type == DeviceType.TV) {
-                        finalDeviceList.add(MilinkClient.mDeviceList.get(i));
+            synchronized (MilinkClient.getDeviceList()) {
+                finalDeviceList.add(MilinkClient.getDeviceList().get(0));
+                for (int i = 1; i < MilinkClient.getDeviceList().size(); ++i) {
+                    if (MilinkClient.getDeviceList().get(i).type == DeviceType.TV) {
+                        finalDeviceList.add(MilinkClient.getDeviceList().get(i));
                     }
                 }
             }
+
             final ArrayList<String> names = new ArrayList<String>();
             for (Device device : finalDeviceList) {
                 names.add(device.name);
@@ -179,6 +183,7 @@ public class ImageActivity extends Activity implements IImageCallback {
 
                     })
                     .create().show();
+
         } else if (item.getTitle().equals(getString(R.string.startSlide))) {
             ReturnCode ret = mMilinkClientManager.startSlideshow(SLIDE_DURATION, SlideMode.Recyle);
             Log.d(TAG, "start slide show ret code: " + ret);
@@ -205,7 +210,6 @@ public class ImageActivity extends Activity implements IImageCallback {
 
     private void setImageInfo() {
         String path = imagePathList.get(mCurrentPosition);
-        String title = imageTitleList.get(mCurrentPosition);
         // DisplayMetrics dm = getResources().getDisplayMetrics();
         // int width = dm.widthPixels;
         // int height = dm.heightPixels;
@@ -226,6 +230,12 @@ public class ImageActivity extends Activity implements IImageCallback {
         mImageView.setImageBitmap(bm);
     }
 
+    /**
+     * connect to device.
+     * 
+     * @param deviceId
+     * @param timeout
+     */
     public void connect(String deviceId, int timeout) {
         ReturnCode retcode = mMilinkClientManager.connect(deviceId, timeout);
         Log.d(TAG, "connect ret code: " + retcode);
@@ -236,6 +246,9 @@ public class ImageActivity extends Activity implements IImageCallback {
         Log.d(TAG, "disconnect ret code: " + retcode);
     }
 
+    /**
+     * initialize show photo.
+     */
     public void initShowPhoto() {
         ReturnCode retcode = mMilinkClientManager.startShow();
         Log.d(TAG, "init show photo ret code: " + retcode);

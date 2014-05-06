@@ -53,8 +53,6 @@ public class VideoActivity extends Activity implements IVideoCallback {
     private Timer mTimer = null;
     private TimerTask mTimerTask = null;
 
-    public String DEVICEID;
-
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == VIDEO_DURATION) {
@@ -69,8 +67,8 @@ public class VideoActivity extends Activity implements IVideoCallback {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.video_details);
 
-        mMilinkClientManager = MilinkClient.mMilinkClient.getManagerInstance();
-        MilinkClient.mMilinkClient.setCallback(this);
+        mMilinkClientManager = MilinkClient.getManagerInstance();
+        MilinkClient.getMilinkClientInstance().setCallback(this);
 
         Bundle mBundle = getIntent().getExtras();
         mVideoList = (List<Map<String, Object>>) mBundle.get("videoInfoList");
@@ -104,14 +102,16 @@ public class VideoActivity extends Activity implements IVideoCallback {
             this.finish();
         } else if (item.getTitle().equals(getString(R.string.push))) {
             final ArrayList<Device> finalDeviceList = new ArrayList<Device>();
-            synchronized (MilinkClient.mDeviceList) {
-                finalDeviceList.add(MilinkClient.mDeviceList.get(0));
-                for (int i = 1; i < MilinkClient.mDeviceList.size(); ++i) {
-                    if (MilinkClient.mDeviceList.get(i).type == DeviceType.TV) {
-                        finalDeviceList.add(MilinkClient.mDeviceList.get(i));
+
+            synchronized (MilinkClient.getDeviceList()) {
+                finalDeviceList.add(MilinkClient.getDeviceList().get(0));
+                for (int i = 1; i < MilinkClient.getDeviceList().size(); ++i) {
+                    if (MilinkClient.getDeviceList().get(i).type == DeviceType.TV) {
+                        finalDeviceList.add(MilinkClient.getDeviceList().get(i));
                     }
                 }
             }
+
             final ArrayList<String> names = new ArrayList<String>();
             for (Device device : finalDeviceList) {
                 names.add(device.name);
@@ -126,11 +126,11 @@ public class VideoActivity extends Activity implements IVideoCallback {
                         @Override
                         public void onClick(DialogInterface dialog, int pos) {
                             if (pos == 0) {
+                                getActionBar().setTitle(R.string.localDeviceName);
                                 mDeviceCurrentPosition = 0;
                                 stopVideo(getCurrentFocus());
                                 disconnect();
 
-                                getActionBar().setTitle(R.string.localDeviceName);
                             } else if (pos == mDeviceCurrentPosition) {
                                 if (mCurrentState == Automata.START) {
                                     String deviceId = finalDeviceList.get(pos).id;
@@ -138,6 +138,7 @@ public class VideoActivity extends Activity implements IVideoCallback {
 
                                     getActionBar().setTitle(deviceName);
                                     connect(deviceId, CONNECT_TIME_OUT);
+
                                 } else if (mCurrentState == Automata.STOPPED) {
                                     switchState(Automata.DEVICE_READY);
                                     playVideo(getCurrentFocus());
@@ -154,7 +155,6 @@ public class VideoActivity extends Activity implements IVideoCallback {
 
                                 getActionBar().setTitle(deviceName);
                                 connect(deviceId, CONNECT_TIME_OUT);
-                                DEVICEID = deviceId;
                             }
                         }
 
@@ -232,6 +232,9 @@ public class VideoActivity extends Activity implements IVideoCallback {
         }
     }
 
+    /**
+     * update time line of video
+     */
     private void startTimerTask() {
         if (mTimer == null) {
             mTimer = new Timer();
@@ -272,6 +275,12 @@ public class VideoActivity extends Activity implements IVideoCallback {
         }
     }
 
+    /**
+     * changing state of media player
+     * 
+     * @param state
+     * @return true stands for switching successfully.
+     */
     private boolean switchState(Automata state) {
         Log.d(TAG, "current state: " + mCurrentState);
         switch (state) {
@@ -334,6 +343,12 @@ public class VideoActivity extends Activity implements IVideoCallback {
         }
     }
 
+    /**
+     * connect to device.
+     * 
+     * @param deviceId
+     * @param timeout
+     */
     public void connect(String deviceId, int timeout) {
         if (switchState(Automata.CONNECTING)) {
             Log.d(TAG, "new state: " + mCurrentState);
@@ -350,6 +365,11 @@ public class VideoActivity extends Activity implements IVideoCallback {
         }
     }
 
+    /**
+     * button onClick callback.
+     * 
+     * @param view
+     */
     public void playVideo(View view) {
         if (switchState(Automata.PLAYING)) {
             stopTimerTask();
