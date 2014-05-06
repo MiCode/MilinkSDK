@@ -6,7 +6,7 @@
 
 首先确保手机中已经安装[MiLinkService-signed-release.apk][005]，之后再安装[UniPlay.apk][006]，命令如下：
 
-    adb install __$your directory$__/UniPlay.apk
+    adb install $your directory$/UniPlay.apk
 
 ## 实现的功能
 
