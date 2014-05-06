@@ -35,5 +35,5 @@
 [003]: http://www.xiaomi.com/  (Xiaomi)
 [004]: http://www.xiaomi.com/  (Xiaomi)
 [005]: https://github.com/jxfengzi/MilinkSDK/blob/master/SDK/MiLinkService-signed-release.apk  (MiLinkService-signed-release.apk)
-[006]: http://www.xiaomi.com/  (Xiaomi)
+[006]: https://github.com/jxfengzi/MilinkSDK/blob/master/UniPlay/v1/UniPlay.apk  (UniPlay.apk)
 [007]: https://github.com/jxfengzi/MilinkSDK/blob/master/SDK/milink.jar  (milink.jar)
