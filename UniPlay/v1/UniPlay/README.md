@@ -24,10 +24,10 @@
 
 ## 使用MilinkSDK开发注意事项
 
-1. 工程Build Path要包含[milink.jar][007]。
-2. 使用MilinkClientManager对象要保证单一性，推荐采用singleton模式。
-3. 所有API均采用非阻塞模式，需使用回调机制判断API调用的结果。
-4. 在推送视频和音乐时，要注意维护好本地播放状态。
+* 工程Build Path要包含[milink.jar][007]。
+* 使用MilinkClientManager对象要保证单一性，推荐采用singleton模式。
+* 所有API均采用非阻塞模式，需使用回调机制判断API调用的结果。
+* 在推送视频和音乐时，要注意维护好本地播放状态。
 
 
 [001]: http://www.xiaomi.com/  (Xiaomi)
