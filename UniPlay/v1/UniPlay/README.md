@@ -4,7 +4,7 @@
 
 ## 安装
 
-首先确保手机中已经安装[MiLinkService-signed-release.apk][005]，之后再安装UniPlay.apk，命令如下：
+首先确保手机中已经安装[MiLinkService-signed-release.apk][005]，之后再安装[UniPlay.apk][006]，命令如下：
 
     adb install $your directory$\UniPlay.apk
 
@@ -24,10 +24,10 @@
 
 ## 使用MilinkSDK开发注意事项
 
-工程Build Path要包含[milink.jar][006]。
-使用MilinkClientManager对象要保证单一性，推荐采用singleton模式。
-所有API均采用非阻塞模式，需使用回调机制判断API调用的结果。
-在推送视频和音乐时，要注意维护好本地播放状态。
+1. 工程Build Path要包含[milink.jar][007]。
+2. 使用MilinkClientManager对象要保证单一性，推荐采用singleton模式。
+3. 所有API均采用非阻塞模式，需使用回调机制判断API调用的结果。
+4. 在推送视频和音乐时，要注意维护好本地播放状态。
 
 
 [001]: http://www.xiaomi.com/  (Xiaomi)
@@ -35,4 +35,5 @@
 [003]: http://www.xiaomi.com/  (Xiaomi)
 [004]: http://www.xiaomi.com/  (Xiaomi)
 [005]: https://github.com/jxfengzi/MilinkSDK/blob/master/SDK/MiLinkService-signed-release.apk  (MiLinkService-signed-release.apk)
-[006]: https://github.com/jxfengzi/MilinkSDK/blob/master/SDK/milink.jar  (milink.jar)
+[006]: http://www.xiaomi.com/  (Xiaomi)
+[007]: https://github.com/jxfengzi/MilinkSDK/blob/master/SDK/milink.jar  (milink.jar)
