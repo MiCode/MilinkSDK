@@ -1,6 +1,11 @@
 
 package com.milink.uniplay;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -22,6 +27,7 @@ import java.util.List;
 
 public class MainActivity extends FragmentActivity {
     private final String TAG = this.getClass().getSimpleName();
+    private final String SERVICE_NAME = "com.milink.service";
 
     private MilinkClientManager mMilinkClientManager = null;
 
@@ -54,6 +60,8 @@ public class MainActivity extends FragmentActivity {
         mMilinkClientManager.setDataSource(client);
         mMilinkClientManager.setDeviceName("My Phone");
         mMilinkClientManager.open();
+
+        checkServiceAvailable(this);
 
         Device nullDevice = new Device("127.0.0.1", getString(R.string.localDeviceName),
                 DeviceType.Unknown);
@@ -100,6 +108,28 @@ public class MainActivity extends FragmentActivity {
         public int getCount() {
             return mFragmentList.size();
         }
+    }
+
+    private void checkServiceAvailable(final Activity mActivity) {
+        try {
+            getPackageManager().getApplicationInfo(SERVICE_NAME,
+                    PackageManager.GET_UNINSTALLED_PACKAGES);
+            Log.d(TAG, "service found.");
+            return;
+        } catch (NameNotFoundException e) {
+        }
+
+        Log.d(TAG, "service not found.");
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.serviceUnavailable)
+                .setCancelable(false)
+                .setPositiveButton(android.R.string.ok,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                mActivity.finish();
+                            }
+                        }).create().show();
     }
 
 }
