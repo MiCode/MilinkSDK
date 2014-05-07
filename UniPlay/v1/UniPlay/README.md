@@ -24,7 +24,7 @@
 
 ## 使用MilinkSDK开发注意事项
 
-* 手机中一定要安装[MiLinkService-signed-release.apk][005]，否则程序无法实用MilinkSDK。
+* 手机中一定要安装[MiLinkService-signed-release.apk][005]，否则程序无法使用MilinkSDK。
 * 工程Build Path要包含[milink.jar][007]。
 * 使用MilinkClientManager对象要保证单一性，推荐采用singleton模式。
 * 所有API均采用非阻塞模式，需使用回调机制判断API调用的结果。
