@@ -206,6 +206,7 @@ public class ImageActivity extends Activity implements IImageCallback {
     protected void onDestroy() {
         super.onDestroy();
         stopShow();
+        disconnect();
     }
 
     private void setImageInfo() {
