@@ -309,7 +309,12 @@ public class ImageActivity extends Activity implements IImageCallback {
 
     @Override
     public void onDisconnected() {
-        mOptionsMenu.getItem(0).setVisible(false);
+        if (mOptionsMenu != null && mOptionsMenu.size() > 1) {
+            MenuItem item = mOptionsMenu.getItem(0);
+            if (item != null) {
+                item.setVisible(false);
+            }
+        }
     }
 
     @Override
