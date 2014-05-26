@@ -1,11 +1,12 @@
 
 package com.milink.uniplay;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -61,7 +62,7 @@ public class MainActivity extends FragmentActivity {
         mMilinkClientManager.setDeviceName("My Phone");
         mMilinkClientManager.open();
 
-        checkServiceAvailable(this);
+        checkServiceAvailable();
 
         Device nullDevice = new Device("127.0.0.1", getString(R.string.localDeviceName),
                 DeviceType.Unknown);
@@ -110,7 +111,7 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
-    private void checkServiceAvailable(final Activity mActivity) {
+    private void checkServiceAvailable() {
         try {
             getPackageManager().getApplicationInfo(SERVICE_NAME,
                     PackageManager.GET_UNINSTALLED_PACKAGES);
@@ -127,7 +128,16 @@ public class MainActivity extends FragmentActivity {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface arg0, int arg1) {
-                                mActivity.finish();
+                                startActivity(new Intent(Intent.ACTION_VIEW, Uri
+                                        .parse("market://search?q=MilinkService")));
+                                MainActivity.this.finish();
+                            }
+                        })
+                .setNegativeButton(android.R.string.cancel,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                MainActivity.this.finish();
                             }
                         }).create().show();
     }
