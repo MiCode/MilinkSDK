@@ -28,6 +28,6 @@
     <string name="slideDialogName">确认停止幻灯片播放模式</string>
     <string name="push">推送</string>
     <string name="startSlide">开始播放幻灯片</string>
-    <string name="serviceUnavailable">联播服务未安装</string>
+    <string name="serviceUnavailable">联播服务未安装，点击确定去往应用商店安装</string>
 
 </resources>
