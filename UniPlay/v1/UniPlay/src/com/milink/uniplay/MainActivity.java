@@ -129,7 +129,7 @@ public class MainActivity extends FragmentActivity {
                             @Override
                             public void onClick(DialogInterface arg0, int arg1) {
                                 startActivity(new Intent(Intent.ACTION_VIEW, Uri
-                                        .parse("market://search?q=MilinkService")));
+                                        .parse("http://app.xiaomi.com/download/62621")));
                                 MainActivity.this.finish();
                             }
                         })
